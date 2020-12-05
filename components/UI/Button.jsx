@@ -7,6 +7,7 @@ const OwnButton = (props) => {
   return (
     <View style={styles.btnWrapper}>
       <Button
+        {...props}
         title={props.title.toString()}
         onPress={() => props.btnPress(props.title, props.btnType, props.index)}
         color={!props.isActive ? Colors.btnColor : Colors.btnActive}
@@ -19,13 +20,13 @@ const styles = StyleSheet.create({
   btnWrapper: {
     width: 100,
     height: 30,
-    borderColor: 'white',
+    borderColor: "white",
     borderWidth: 1,
     borderRadius: 10,
-    overflow: 'hidden',
-    justifyContent: 'center',
+    overflow: "hidden",
+    justifyContent: "center",
     marginHorizontal: 15,
-    marginVertical: 8
+    marginVertical: 8,
   },
 });
 

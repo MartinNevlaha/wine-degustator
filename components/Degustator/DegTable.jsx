@@ -7,10 +7,10 @@ import Colors from "../../constants/Colors";
 import TableElement from "../../components/Degustator/TableElement";
 import TableFormater from "../HOC/TableFormater";
 import OwnText from "../UI/Text";
-import WineInfo from '../Degustator/Wineinfo';
+import WineInfo from "../Degustator/Wineinfo";
+import WineInput from "../UI/WineInput";
 
 const DegTable = (props) => {
-
   const btnValues = {
     lookClarity: [5, 4, 3, 2, 1],
     lookOutOfClarity: [10, 8, 6, 4, 2],
@@ -33,6 +33,7 @@ const DegTable = (props) => {
           btnPress={props.btnPress}
           isActive={props.isActive[btnType][index]}
           index={index}
+          disabled={props.eliminated}
         />
       );
     });
@@ -77,7 +78,9 @@ const DegTable = (props) => {
   return (
     <View style={styles.degTableContainer}>
       <OwnText style={styles.title}>Hodnotenie vína</OwnText>
-      <View>
+      <View style={styles.preHeader}>
+        <WineInput />
+        <OwnText style={{color: 'red'}}>Víno ste už hodnotili, zadajte prosím iné číslo vína</OwnText>
         <WineInfo wineInfo />
       </View>
       <TableFormater headTitle="">
@@ -120,7 +123,7 @@ const DegTable = (props) => {
 const styles = StyleSheet.create({
   degTableContainer: {
     width: "72%",
-    height: "95%",
+    height: "100%",
     backgroundColor: Colors.primary,
     borderColor: "white",
     borderWidth: 1,
@@ -140,10 +143,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 50,
   },
   title: {
-    fontFamily: 'open-sans-bold',
-    fontSize: 25,
-    textAlign: 'center',
-  }
+    fontFamily: "open-sans-bold",
+    fontSize: 24,
+    textAlign: "center",
+  },
+  preHeader: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
 });
 
 export default DegTable;

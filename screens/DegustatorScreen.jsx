@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, ImageBackground, StyleSheet } from "react-native";
 
 import DegTable from "../components/Degustator/DegTable";
+import ContinuosResults from "../components/Degustator/ContinuousResults";
 
 const DegustatorScreen = (props) => {
   const initialStyleState = {
@@ -17,6 +18,7 @@ const DegustatorScreen = (props) => {
     generalImpresion: [false, false, false, false, false],
   };
   const [isActive, setIsActive] = useState(initialStyleState);
+  const [eliminated, setEliminate] = useState(false);
   const [values, setValues] = useState({
     lookClarity: null,
     lookOutOfClarity: null,
@@ -28,6 +30,7 @@ const DegustatorScreen = (props) => {
     tasteHarmonicPersistence: null,
     tasteQuality: null,
     generalImpresion: null,
+    totalSum: null,
   });
 
   const btnPressHandler = (value, btnType, index) => {
@@ -38,8 +41,11 @@ const DegustatorScreen = (props) => {
       }),
     }));
     setValues({
-      [btnType]: value
-    })
+      [btnType]: value,
+    });
+  };
+  const eliminatedHandler = (value) => {
+    setEliminate(value);
   };
   return (
     <View style={styles.mainContainer}>
@@ -47,7 +53,18 @@ const DegustatorScreen = (props) => {
         source={require("../assets/wine_background.jpg")}
         style={styles.background}
       >
-        <DegTable btnPress={btnPressHandler} isActive={isActive} />
+        <View style={styles.componetContainer}>
+          <DegTable
+            btnPress={btnPressHandler}
+            isActive={isActive}
+            eliminated={eliminated}
+          />
+          <ContinuosResults
+            degInfo
+            eliminated={eliminated}
+            eliminatedHandler={eliminatedHandler}
+          />
+        </View>
       </ImageBackground>
     </View>
   );
@@ -61,6 +78,10 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center",
+  },
+  componetContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
 });
 
