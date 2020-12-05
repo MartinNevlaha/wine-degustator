@@ -6,6 +6,8 @@ import OwnButton from "../UI/Button";
 import Colors from "../../constants/Colors";
 import TableElement from "../../components/Degustator/TableElement";
 import TableFormater from "../HOC/TableFormater";
+import OwnText from "../UI/Text";
+import WineInfo from '../Degustator/Wineinfo';
 
 const DegTable = (props) => {
 
@@ -74,6 +76,10 @@ const DegTable = (props) => {
 
   return (
     <View style={styles.degTableContainer}>
+      <OwnText style={styles.title}>Hodnotenie vína</OwnText>
+      <View>
+        <WineInfo wineInfo />
+      </View>
       <TableFormater headTitle="">
         <TableElement btnType={emoji} title="" />
       </TableFormater>
@@ -113,8 +119,8 @@ const DegTable = (props) => {
 
 const styles = StyleSheet.create({
   degTableContainer: {
-    width: "75%",
-    height: "90%",
+    width: "72%",
+    height: "95%",
     backgroundColor: Colors.primary,
     borderColor: "white",
     borderWidth: 1,
@@ -133,6 +139,11 @@ const styles = StyleSheet.create({
     padding: 5,
     marginHorizontal: 50,
   },
+  title: {
+    fontFamily: 'open-sans-bold',
+    fontSize: 25,
+    textAlign: 'center',
+  }
 });
 
 export default DegTable;

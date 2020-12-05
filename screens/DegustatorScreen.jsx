@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, ImageBackground, StyleSheet } from "react-native";
+import { View, ImageBackground, StyleSheet } from "react-native";
 
 import DegTable from "../components/Degustator/DegTable";
 
