@@ -1,8 +1,19 @@
 import React, { useState } from "react";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import ReduxThunk from "redux-thunk";
 
 import AppNavigation from "./navigation/AppNavigation";
+
+import degustationReducer from "./store/reducers/degustation";
+
+const rootReducer = combineReducers({
+  degReducer: degustationReducer,
+});
+
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -25,6 +36,9 @@ export default function App() {
     );
   }
 
-  return <AppNavigation />;
+  return (
+    <Provider store={store}>
+      <AppNavigation />
+    </Provider>
+  );
 }
-

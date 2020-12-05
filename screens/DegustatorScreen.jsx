@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { View, ImageBackground, StyleSheet } from "react-native";
+import { connect } from "react-redux";
 
 import DegTable from "../components/Degustator/DegTable";
 import ContinuosResults from "../components/Degustator/ContinuousResults";
+import * as action from "../store/actions/index";
 
 const DegustatorScreen = (props) => {
   const initialStyleState = {
@@ -18,34 +20,19 @@ const DegustatorScreen = (props) => {
     generalImpresion: [false, false, false, false, false],
   };
   const [isActive, setIsActive] = useState(initialStyleState);
-  const [eliminated, setEliminate] = useState(false);
-  const [values, setValues] = useState({
-    lookClarity: null,
-    lookOutOfClarity: null,
-    smellPurity: null,
-    smellPossitiveIntesity: null,
-    smellQuality: null,
-    tastePurity: null,
-    tastePossitiveIntesity: null,
-    tasteHarmonicPersistence: null,
-    tasteQuality: null,
-    generalImpresion: null,
-    totalSum: null,
-  });
 
   const btnPressHandler = (value, btnType, index) => {
+    props.onDegustatorPressBtn(btnType, +value);
     setIsActive((prevState) => ({
       ...prevState,
       [btnType]: prevState[btnType].map((state, i) => {
         return i === index;
       }),
     }));
-    setValues({
-      [btnType]: value,
-    });
   };
+
   const eliminatedHandler = (value) => {
-    setEliminate(value);
+    props.onEliminated(value);
   };
   return (
     <View style={styles.mainContainer}>
@@ -57,11 +44,13 @@ const DegustatorScreen = (props) => {
           <DegTable
             btnPress={btnPressHandler}
             isActive={isActive}
-            eliminated={eliminated}
+            eliminated={props.eliminated}
           />
           <ContinuosResults
             degInfo
-            eliminated={eliminated}
+            totalSum={props.totalSum}
+            wineCategory={props.wineCategory}
+            eliminated={props.eliminated}
             eliminatedHandler={eliminatedHandler}
           />
         </View>
@@ -85,4 +74,22 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DegustatorScreen;
+const mapStateToProps = (state) => {
+  return {
+    results: state.degReducer,
+    eliminated: state.degReducer.eliminated,
+    wineCategory: state.degReducer.wineCategory,
+    totalSum: state.degReducer.totalSum
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onDegustatorPressBtn: (btnType, value) =>
+      dispatch(action.getDegustatorBtnPress(btnType, value)),
+    onEliminated: (isEliminated) =>
+      dispatch(action.getEliminatedStatus(isEliminated)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DegustatorScreen);

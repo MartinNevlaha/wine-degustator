@@ -21,10 +21,10 @@ const ContinuosResults = (props) => {
         />
       </View>
       <OwnText>
-        Kategória vína: {props.eliminated ? "Eliminované" : "hodnota"}
+        Kategória vína: {props.eliminated ? "Eliminované" : props.wineCategory}
       </OwnText>
       <OwnText>
-        Celkom bodov: {props.eliminated ? "Eliminované" : "hodnota"}
+        Celkom bodov: {props.eliminated ? "Eliminované" : props.totalSum}
       </OwnText>
     </View>
   );
