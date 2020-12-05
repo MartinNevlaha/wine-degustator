@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Button, StyleSheet, Dimensions } from "react-native";
+import { View, Button, StyleSheet } from "react-native";
 
 import Colors from "../../constants/Colors";
 
@@ -8,7 +8,7 @@ const OwnButton = (props) => {
     <View style={styles.btnWrapper}>
       <Button
         title={props.title.toString()}
-        onPress={() => {console.log('press')}}
+        onPress={() => props.btnPress(props.title, props.btnType, props.index)}
         color={!props.isActive ? Colors.btnColor : Colors.btnActive}
       />
     </View>

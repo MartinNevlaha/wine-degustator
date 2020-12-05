@@ -7,13 +7,8 @@ import Colors from "../../constants/Colors";
 import TableElement from "../../components/Degustator/TableElement";
 import TableFormater from "../HOC/TableFormater";
 
-const generateBtn = (btnValues, btnType) => {
-  return btnValues.map((btn, index) => {
-    return <OwnButton title={btn.toString()} key={index} />;
-  });
-};
-
 const DegTable = (props) => {
+
   const btnValues = {
     lookClarity: [5, 4, 3, 2, 1],
     lookOutOfClarity: [10, 8, 6, 4, 2],
@@ -25,6 +20,20 @@ const DegTable = (props) => {
     tasteHarmonicPersistence: [8, 7, 6, 5, 4],
     tasteQuality: [22, 19, 16, 13, 10],
     generalImpresion: [11, 10, 9, 8, 7],
+  };
+  const generateBtn = (btnValues, btnType) => {
+    return btnValues.map((btn, index) => {
+      return (
+        <OwnButton
+          title={btn.toString()}
+          key={index}
+          btnType={btnType}
+          btnPress={props.btnPress}
+          isActive={props.isActive[btnType][index]}
+          index={index}
+        />
+      );
+    });
   };
   const btnsLookClarity = generateBtn(btnValues.lookClarity, "lookClarity");
   const btnslookOutOfClarity = generateBtn(
@@ -51,16 +60,18 @@ const DegTable = (props) => {
     btnValues.generalImpresion,
     "generalImpresion"
   );
-  const emojiIcons = [
-    "smile-wink",
-    "smile",
-    "meh",
-    "frown",
-    "frown-open",
-  ];
+  const emojiIcons = ["smile-wink", "smile", "meh", "frown", "frown-open"];
+
   const emoji = emojiIcons.map((emj, i) => (
-    <FontAwesome5 key={i} name={emj} size={20} color="white" style={styles.emoji}/>
+    <FontAwesome5
+      key={i}
+      name={emj}
+      size={20}
+      color="white"
+      style={styles.emoji}
+    />
   ));
+
   return (
     <View style={styles.degTableContainer}>
       <TableFormater headTitle="">
@@ -120,8 +131,8 @@ const styles = StyleSheet.create({
   },
   emoji: {
     padding: 5,
-    marginHorizontal: 50
-  }
+    marginHorizontal: 50,
+  },
 });
 
 export default DegTable;
