@@ -1,5 +1,7 @@
 export {
   getEliminatedStatus,
   getDegustatorBtnPress,
-  getComment
+  getComment,
 } from "../actions/degustation";
+
+export { fetchWineinfo, fetchWineInGroup } from "../actions/wineInfo";

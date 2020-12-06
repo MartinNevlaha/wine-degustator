@@ -1,7 +1,7 @@
 import validate from 'validate.js';
 
 export const isIdValid = (id) => {
-  return validate.isNumber(+id) && id.length > 0 && id > 0;
+  return validate.isNumber(+id) && id > 0;
 }
 
 export const isRatingValid = (results, eliminateStatus) => {

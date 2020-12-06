@@ -12,10 +12,13 @@ const WineInput = (props) => {
           fontFamily: "open-sans",
           fontSize: 17,
         }}
-        style={{ height: 30, width: 80 }}
+        style={{ height: 20, width: 80 }}
+        onValueChange={props.getWineId}
+        selectedValue={props.selectedId}
       >
-        <Picker.Item label="" value="" />
-        <Picker.Item label="1" value="1" />
+        {props.idOptions.map((item, i) => (
+          <Picker.Item key={i} label={`${item.id}`} value={`${item._id}`} />
+        ))}
       </Picker>
     </View>
   );

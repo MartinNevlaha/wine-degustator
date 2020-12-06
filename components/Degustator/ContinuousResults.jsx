@@ -38,7 +38,14 @@ const ContinuosResults = (props) => {
         />
       </View>
       <OwnText style={styles.check}>Je hodnotenie v poriadku ?</OwnText>
-      <OwnText>Číslo vína: ok</OwnText>
+      <OwnText>
+        Číslo vína:{" "}
+        {props.isWineIdValid ? (
+          "Ok"
+        ) : (
+          <OwnText style={styles.warnText}>Zadaj číslo vína</OwnText>
+        )}
+      </OwnText>
       <OwnText>
         Vaše hodnotenie:{" "}
         {props.isRatingValid ? (
@@ -49,7 +56,7 @@ const ContinuosResults = (props) => {
       </OwnText>
       <View style={styles.btn}>
         <Button
-          disabled={!props.isRatingValid}
+          disabled={!(props.isRatingValid && props.isWineIdValid)}
           title="Odoslať"
           color={Colors.btnColor}
           onPress={() => {

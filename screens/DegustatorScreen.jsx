@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, ImageBackground, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 
@@ -21,6 +21,13 @@ const DegustatorScreen = (props) => {
     generalImpresion: [false, false, false, false, false],
   };
   const [isActive, setIsActive] = useState(initialStyleState);
+  const [selectedWineId, setSelectedWineId] = useState();
+  const [isWineIdValid, setIsWineIdValid] = useState(false);
+
+  const { onFetchWineInGroups } = props;
+  useEffect(() => {
+    onFetchWineInGroups();
+  }, [onFetchWineInGroups]);
 
   const btnPressHandler = (value, btnType, index) => {
     props.onDegustatorPressBtn(btnType, +value);
@@ -35,6 +42,13 @@ const DegustatorScreen = (props) => {
   const eliminatedHandler = (value) => {
     props.onEliminated(value);
   };
+
+  const getWineIdHandler = (value) => {
+    const selectedId = props.idOptions.filter((item) => item._id === value);
+    setSelectedWineId(value);
+    setIsWineIdValid(isIdValid(selectedId[0].id))
+    props.onFetchWineInfo(selectedId[0].id);
+  };
   return (
     <View style={styles.mainContainer}>
       <ImageBackground
@@ -46,6 +60,9 @@ const DegustatorScreen = (props) => {
             btnPress={btnPressHandler}
             isActive={isActive}
             eliminated={props.eliminated}
+            idOptions={props.idOptions}
+            selectedId={selectedWineId}
+            getWineId={getWineIdHandler}
           />
           <ContinuosResults
             degInfo
@@ -55,7 +72,11 @@ const DegustatorScreen = (props) => {
             eliminatedHandler={eliminatedHandler}
             getComment={props.onGetComment}
             comment={props.comment}
-            isRatingValid={isRatingValid(props.results.results, props.eliminated)}
+            isRatingValid={isRatingValid(
+              props.results.results,
+              props.eliminated
+            )}
+            isWineIdValid={isWineIdValid}
           />
         </View>
       </ImageBackground>
@@ -85,16 +106,17 @@ const mapStateToProps = (state) => {
     wineCategory: state.degReducer.wineCategory,
     totalSum: state.degReducer.totalSum,
     comment: state.degReducer.comment,
+    idOptions: state.wineInfo.wineInGroups,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onDegustatorPressBtn: (btnType, value) =>
-      dispatch(action.getDegustatorBtnPress(btnType, value)),
-    onEliminated: (isEliminated) =>
-      dispatch(action.getEliminatedStatus(isEliminated)),
+    onDegustatorPressBtn: (btnType, value) => dispatch(action.getDegustatorBtnPress(btnType, value)),
+    onEliminated: (isEliminated) => dispatch(action.getEliminatedStatus(isEliminated)),
     onGetComment: (text) => dispatch(action.getComment(text)),
+    onFetchWineInGroups: () => dispatch(action.fetchWineInGroup()),
+    onFetchWineInfo: (wineId) => dispatch(action.fetchWineinfo(wineId)),
   };
 };
 

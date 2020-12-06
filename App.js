@@ -4,16 +4,22 @@ import { AppLoading } from "expo";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 import AppNavigation from "./navigation/AppNavigation";
 
 import degustationReducer from "./store/reducers/degustation";
+import wineInfoReducer from "./store/reducers/wineInfo";
 
 const rootReducer = combineReducers({
   degReducer: degustationReducer,
+  wineInfo: wineInfoReducer,
 });
 
-const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(ReduxThunk))
+);
 
 const fetchFonts = () => {
   return Font.loadAsync({

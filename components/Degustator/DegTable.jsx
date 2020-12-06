@@ -79,8 +79,14 @@ const DegTable = (props) => {
     <View style={styles.degTableContainer}>
       <OwnText style={styles.title}>Hodnotenie vína</OwnText>
       <View style={styles.preHeader}>
-        <WineInput />
-        <OwnText style={{color: 'red'}}>Víno ste už hodnotili, zadajte prosím iné číslo vína</OwnText>
+        <WineInput
+          idOptions={props.idOptions}
+          selectedId={props.selectedId}
+          getWineId={props.getWineId}
+        />
+        <OwnText style={{ color: "red" }}>
+          Víno ste už hodnotili, zadajte prosím iné číslo vína
+        </OwnText>
         <WineInfo wineInfo />
       </View>
       <TableFormater headTitle="">
