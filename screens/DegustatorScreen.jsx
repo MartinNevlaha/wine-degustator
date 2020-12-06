@@ -47,7 +47,9 @@ const DegustatorScreen = (props) => {
     const selectedId = props.idOptions.filter((item) => item._id === value);
     setSelectedWineId(value);
     setIsWineIdValid(isIdValid(selectedId[0].id))
-    props.onFetchWineInfo(selectedId[0].id);
+    if (value !== 'empty') {
+      props.onFetchWineInfo(selectedId[0].id);
+    }
   };
   return (
     <View style={styles.mainContainer}>

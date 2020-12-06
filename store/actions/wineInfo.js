@@ -50,7 +50,6 @@ export const fetchWineinfo = (wineId) => {
       axios
         .get(`degustator/wine-list/${wineId}`)
         .then((resp) => {
-          console.log(resp.data.wine)
           dispatch(fetchWineInfoSucces(resp.data.wine));
         })
         .catch((err) => {

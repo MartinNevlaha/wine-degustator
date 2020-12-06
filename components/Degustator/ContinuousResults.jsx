@@ -1,9 +1,11 @@
 import React from "react";
 import { View, TextInput, Button, StyleSheet } from "react-native";
 import CheckBox from "@react-native-community/checkbox";
+import { connect } from "react-redux";
 
 import Colors from "../../constants/Colors";
 import OwnText from "../UI/Text";
+import { isRatingValid } from "../../utils/validation";
 
 const ContinuosResults = (props) => {
   return (
@@ -56,7 +58,7 @@ const ContinuosResults = (props) => {
       </OwnText>
       <View style={styles.btn}>
         <Button
-          disabled={!(props.isRatingValid && props.isWineIdValid)}
+          disabled={!(props.isWineIdValid && !props.wineInfoError) || !props.isRatingValid}
           title="Odoslať"
           color={Colors.btnColor}
           onPress={() => {
@@ -119,4 +121,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ContinuosResults;
+const mapStateToProps = (state) => ({
+  wineInfoError: state.wineInfo.wineInfo.error
+});
+
+export default connect(mapStateToProps, null)(ContinuosResults);

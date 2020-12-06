@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { connect } from "react-redux";
 
 import OwnButton from "../UI/Button";
 import Colors from "../../constants/Colors";
@@ -84,10 +85,12 @@ const DegTable = (props) => {
           selectedId={props.selectedId}
           getWineId={props.getWineId}
         />
-        <OwnText style={{ color: "red" }}>
-          Víno ste už hodnotili, zadajte prosím iné číslo vína
-        </OwnText>
-        <WineInfo wineInfo />
+        {props.wineInfoError && (
+          <OwnText style={{ color: "red" }}>
+            {props.wineInfoError.message}
+          </OwnText>
+        )}
+        <WineInfo />
       </View>
       <TableFormater headTitle="">
         <TableElement btnType={emoji} title="" />
@@ -160,4 +163,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DegTable;
+const mapStateToProps = (state) => ({
+  wineInfoError: state.wineInfo.wineInfo.error,
+});
+
+export default connect(mapStateToProps, null)(DegTable);

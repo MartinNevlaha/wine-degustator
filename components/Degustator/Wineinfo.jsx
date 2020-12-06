@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import { connect } from "react-redux";
 
 import OwnText from "../UI/Text";
 
@@ -30,6 +31,8 @@ const WineInfo = (props) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const mapStateToProps = (state) => ({
+  wineInfo: state.wineInfo.wineInfo,
+});
 
-export default WineInfo;
+export default connect(mapStateToProps, null)(WineInfo);
