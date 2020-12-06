@@ -85,11 +85,13 @@ const DegTable = (props) => {
           selectedId={props.selectedId}
           getWineId={props.getWineId}
         />
-        {props.wineInfoError && (
-          <OwnText style={{ color: "red" }}>
-            {props.wineInfoError.message}
-          </OwnText>
-        )}
+        <View style={styles.errorContainer}>
+          {props.wineInfoError && (
+            <OwnText style={{ color: "red" }}>
+              {props.wineInfoError.message}
+            </OwnText>
+          )}
+        </View>
         <WineInfo />
       </View>
       <TableFormater headTitle="">
@@ -161,6 +163,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
   },
+  errorContainer: {
+    width: "40%",
+  }
 });
 
 const mapStateToProps = (state) => ({
