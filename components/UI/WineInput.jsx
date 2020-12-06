@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderWidth: 1,
     borderRadius: 10,
-    backgroundColor: 'white',
-    elevation: 10
+    backgroundColor: "white",
+    elevation: 10,
   },
 });
 
