@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import DegTable from "../components/Degustator/DegTable";
 import ContinuosResults from "../components/Degustator/ContinuousResults";
 import * as action from "../store/actions/index";
+import { isIdValid, isRatingValid } from "../utils/validation";
 
 const DegustatorScreen = (props) => {
   const initialStyleState = {
@@ -54,6 +55,7 @@ const DegustatorScreen = (props) => {
             eliminatedHandler={eliminatedHandler}
             getComment={props.onGetComment}
             comment={props.comment}
+            isRatingValid={isRatingValid(props.results.results, props.eliminated)}
           />
         </View>
       </ImageBackground>

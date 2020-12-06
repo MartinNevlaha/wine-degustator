@@ -39,9 +39,17 @@ const ContinuosResults = (props) => {
       </View>
       <OwnText style={styles.check}>Je hodnotenie v poriadku ?</OwnText>
       <OwnText>Číslo vína: ok</OwnText>
-      <OwnText>Vaše hodnotenie: ok</OwnText>
+      <OwnText>
+        Vaše hodnotenie:{" "}
+        {props.isRatingValid ? (
+          "Ok"
+        ) : (
+          <OwnText style={styles.warnText}>Nekompletné</OwnText>
+        )}
+      </OwnText>
       <View style={styles.btn}>
         <Button
+          disabled={!props.isRatingValid}
           title="Odoslať"
           color={Colors.btnColor}
           onPress={() => {
@@ -97,6 +105,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden",
     marginVertical: 10,
+  },
+  warnText: {
+    fontFamily: "open-sans-bold",
+    color: "red",
   },
 });
 
