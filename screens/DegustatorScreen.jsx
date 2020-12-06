@@ -52,6 +52,8 @@ const DegustatorScreen = (props) => {
             wineCategory={props.wineCategory}
             eliminated={props.eliminated}
             eliminatedHandler={eliminatedHandler}
+            getComment={props.onGetComment}
+            comment={props.comment}
           />
         </View>
       </ImageBackground>
@@ -79,7 +81,8 @@ const mapStateToProps = (state) => {
     results: state.degReducer,
     eliminated: state.degReducer.eliminated,
     wineCategory: state.degReducer.wineCategory,
-    totalSum: state.degReducer.totalSum
+    totalSum: state.degReducer.totalSum,
+    comment: state.degReducer.comment,
   };
 };
 
@@ -89,6 +92,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(action.getDegustatorBtnPress(btnType, value)),
     onEliminated: (isEliminated) =>
       dispatch(action.getEliminatedStatus(isEliminated)),
+    onGetComment: (text) => dispatch(action.getComment(text)),
   };
 };
 

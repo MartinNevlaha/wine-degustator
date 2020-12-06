@@ -8,8 +8,9 @@ const OwnText = (props) => (
 const styles = StyleSheet.create({
   text: {
     fontFamily: "open-sans",
-    fontSize: 16,
+    fontSize: 14,
     color: "white",
+    paddingBottom: 5
   },
 });
 
