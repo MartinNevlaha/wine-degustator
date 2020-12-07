@@ -45,6 +45,33 @@ const degustatorPressBtn = (state, action, sum, wineCategory) => {
   return updateObj(state, updateState);
 };
 
+const resultsSendInit = (state, action) => {
+  return updateObj(state, { sending: true });
+};
+
+const resultsSendStart = (state, action) => {
+  return updateObj(state, { loading: true, error: null });
+};
+const resultsSendSucces = (state, action) => {
+  return updateObj(state, {
+    results: action.data,
+    loading: false,
+    sending: false,
+    isSucces: true,
+    message: action.message,
+  });
+};
+const resultsSendFailed = (state, action) => {
+  return updateObj(state, {
+    loading: false,
+    sending: false,
+    error: action.error,
+  });
+};
+const resultsSendCanceled = (state, action) => {
+  return updateObj(state, { sending: false });
+};
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.DEGUSTATOR_PRESS_BTN:

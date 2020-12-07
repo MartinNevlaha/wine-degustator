@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import Colors from "../../constants/Colors";
 import OwnText from "../UI/Text";
-import { isRatingValid } from "../../utils/validation";
+import * as action from '../../store/actions/index';
 
 const ContinuosResults = (props) => {
   return (
@@ -42,7 +42,7 @@ const ContinuosResults = (props) => {
       <OwnText style={styles.check}>Je hodnotenie v poriadku ?</OwnText>
       <OwnText>
         Číslo vína:{" "}
-        {props.isWineIdValid ? (
+        {props.isWineIdValid && !props.wineInfoError ? (
           "Ok"
         ) : (
           <OwnText style={styles.warnText}>Zadaj číslo vína</OwnText>
@@ -62,7 +62,7 @@ const ContinuosResults = (props) => {
           title="Odoslať"
           color={Colors.btnColor}
           onPress={() => {
-            console.log("pressbtn");
+            props.onSendResults();
           }}
         />
       </View>
@@ -125,4 +125,10 @@ const mapStateToProps = (state) => ({
   wineInfoError: state.wineInfo.wineInfo.error
 });
 
-export default connect(mapStateToProps, null)(ContinuosResults);
+const mapDispatchToProps = dispatch => {
+  return {
+    onSendResults: () => dispatch(action.resultsSend())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContinuosResults);

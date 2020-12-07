@@ -28,3 +28,5 @@ export const getDegustatorBtnPress = (btnType, value) => {
         btnType: btnType
     }
 };
+
+

@@ -7,8 +7,8 @@ const axiosOptions = (token) => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  }
-}
+  };
+};
 
 export const resultsClearError = () => {
   return {
@@ -21,7 +21,6 @@ export const clearResultsSendMessage = () => {
     type: actionTypes.CLEAR_RESULTS_SEND_MESSAGE,
   };
 };
-
 
 export const fetchWineInfoStart = () => {
   return {
@@ -105,7 +104,7 @@ export const fetchWineInGroup = () => {
         dispatch(fetchWineInGroupSuccess(wineInGroup));
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         if (err.response) {
           const error = {
             message: err.response.data.message,
@@ -114,6 +113,68 @@ export const fetchWineInGroup = () => {
           dispatch(fetchWineInGroupFailled(error));
         }
         dispatch(fetchWineInGroupFailled(err));
+        setTimeout(() => {
+          dispatch(resultsClearError());
+        }, 2500);
+      });
+  };
+};
+
+export const resultsSendStart = () => {
+  return {
+    type: actionTypes.RESULTS_SEND_START,
+  };
+};
+
+export const resultsSendSucces = (id, data, message) => {
+  return {
+    type: actionTypes.RESULTS_SEND_SUCCESS,
+    resultsId: id,
+    data,
+    message,
+  };
+};
+
+export const resultsSendFailed = (e) => {
+  return {
+    type: actionTypes.RESULTS_SEND_FAIL,
+    error: e,
+  };
+};
+export const resultsSendCanceled = () => {
+  return {
+    type: actionTypes.RESULTS_SEND_CANCELED,
+  };
+};
+export const resetResults = () => {
+  return {
+    type: actionTypes.RESET_RESULTS,
+  };
+};
+
+export const resultsSend = (data) => {
+  return (dispatch) => {
+    dispatch(resultsSendStart());
+    axios
+      .post("degustator/results", data)
+      .then((response) => {
+        dispatch(
+          resultsSendSucces(response.data.name, data, response.data.message)
+        );
+        dispatch(resetResults());
+        setTimeout(() => {
+          dispatch(clearResultsSendMessage());
+        }, 2500);
+      })
+      .catch((err) => {
+        if (err.response) {
+          const error = {
+            message: err.response.data.message,
+            code: err.response.status,
+          };
+          dispatch(resultsSendFailed(error));
+        }
+        dispatch(resultsSendFailed(err));
         setTimeout(() => {
           dispatch(resultsClearError());
         }, 2500);

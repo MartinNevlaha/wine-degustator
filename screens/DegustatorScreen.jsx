@@ -6,6 +6,7 @@ import DegTable from "../components/Degustator/DegTable";
 import ContinuosResults from "../components/Degustator/ContinuousResults";
 import * as action from "../store/actions/index";
 import { isIdValid, isRatingValid } from "../utils/validation";
+import Toast from "../components/UI/Toast";
 
 const DegustatorScreen = (props) => {
   const initialStyleState = {
@@ -46,11 +47,18 @@ const DegustatorScreen = (props) => {
   const getWineIdHandler = (value) => {
     const selectedId = props.idOptions.filter((item) => item._id === value);
     setSelectedWineId(value);
-    setIsWineIdValid(isIdValid(selectedId[0].id))
-    if (value !== 'empty') {
+    setIsWineIdValid(isIdValid(selectedId[0].id));
+    if (value !== "empty") {
       props.onFetchWineInfo(selectedId[0].id);
     }
   };
+
+  let message = '';
+  if (props.error) {
+    message = props.error.message
+  } else if (props.isSucces) {
+    message = props.successMessage
+  }
   return (
     <View style={styles.mainContainer}>
       <ImageBackground
@@ -81,6 +89,7 @@ const DegustatorScreen = (props) => {
             isWineIdValid={isWineIdValid}
           />
         </View>
+          <Toast visible={props.error || props.isSucces} message={message} />
       </ImageBackground>
     </View>
   );
@@ -108,14 +117,19 @@ const mapStateToProps = (state) => {
     wineCategory: state.degReducer.wineCategory,
     totalSum: state.degReducer.totalSum,
     comment: state.degReducer.comment,
-    idOptions: state.wineInfo.wineInGroups,
+    idOptions: state.wineInfo.wineInGroups || [],
+    error: state.wineInfo.error,
+    isSucces: state.wineInfo.isSucces,
+    successMessage: state.wineInfo.message
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onDegustatorPressBtn: (btnType, value) => dispatch(action.getDegustatorBtnPress(btnType, value)),
-    onEliminated: (isEliminated) => dispatch(action.getEliminatedStatus(isEliminated)),
+    onDegustatorPressBtn: (btnType, value) =>
+      dispatch(action.getDegustatorBtnPress(btnType, value)),
+    onEliminated: (isEliminated) =>
+      dispatch(action.getEliminatedStatus(isEliminated)),
     onGetComment: (text) => dispatch(action.getComment(text)),
     onFetchWineInGroups: () => dispatch(action.fetchWineInGroup()),
     onFetchWineInfo: (wineId) => dispatch(action.fetchWineinfo(wineId)),

@@ -22,6 +22,34 @@ const initialState = {
 const resultsClearError = (state, action) => {
   return updateObj(state, { error: null });
 };
+
+const resultsSendInit = (state, action) => {
+  return updateObj(state, { sending: true });
+};
+
+const resultsSendStart = (state, action) => {
+  return updateObj(state, { loading: true, error: null });
+};
+const resultsSendSucces = (state, action) => {
+  return updateObj(state, {
+    results: action.data,
+    loading: false,
+    sending: false,
+    isSucces: true,
+    message: action.message,
+  });
+};
+const resultsSendFailed = (state, action) => {
+  return updateObj(state, {
+    loading: false,
+    sending: false,
+    error: action.error,
+  });
+};
+const resultsSendCanceled = (state, action) => {
+  return updateObj(state, { sending: false });
+};
+
 const fetchWineInGroupStart = (state, action) => {
   return updateObj(state, {
     loading: true,
@@ -83,6 +111,16 @@ const fetchWineInfoFailled = (state, action) => {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.RESULTS_SEND_START:
+      return resultsSendStart(state, action);
+    case actionTypes.RESULTS_SEND_SUCCESS:
+      return resultsSendSucces(state, action);
+    case actionTypes.RESULTS_SEND_FAIL:
+      return resultsSendFailed(state, action);
+    case actionTypes.RESULTS_SEND_INIT:
+      return resultsSendInit(state, action);
+    case actionTypes.RESULTS_SEND_CANCELED:
+      return resultsSendCanceled(state, action);
     case actionTypes.FETCH_WINE_INFO_START:
       return fetchWineInfoStart(state, action);
     case actionTypes.FETCH_WINE_INFO_SUCCES:
@@ -95,6 +133,8 @@ export default (state = initialState, action) => {
       return fetchWineInGroupSuccess(state, action);
     case actionTypes.FETCH_WINE_IN_GROUP_FAIL:
       return fetchWineInGroupsFailled(state, action);
+    case actionTypes.RESULT_CLEAR_ERROR:
+      return resultsClearError(state, action);
     default:
       return state;
   }

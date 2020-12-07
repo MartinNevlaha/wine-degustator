@@ -4,4 +4,8 @@ export {
   getComment,
 } from "../actions/degustation";
 
-export { fetchWineinfo, fetchWineInGroup } from "../actions/wineInfo";
+export {
+  fetchWineinfo,
+  fetchWineInGroup,
+  resultsSend,
+} from "../actions/wineInfo";
