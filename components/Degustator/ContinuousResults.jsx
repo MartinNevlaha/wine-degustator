@@ -61,9 +61,7 @@ const ContinuosResults = (props) => {
           disabled={!(props.isWineIdValid && !props.wineInfoError) || !props.isRatingValid}
           title="Odoslať"
           color={Colors.btnColor}
-          onPress={() => {
-            props.onSendResults();
-          }}
+          onPress={props.toggleModal}
         />
       </View>
     </View>
@@ -125,10 +123,6 @@ const mapStateToProps = (state) => ({
   wineInfoError: state.wineInfo.wineInfo.error
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onSendResults: () => dispatch(action.resultsSend())
-  }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContinuosResults);
+
+export default connect(mapStateToProps, null)(ContinuosResults);

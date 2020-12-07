@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, ImageBackground, StyleSheet } from "react-native";
+import { View, ImageBackground, StyleSheet, Modal, Text } from "react-native";
 import { connect } from "react-redux";
 
 import DegTable from "../components/Degustator/DegTable";
@@ -7,6 +7,7 @@ import ContinuosResults from "../components/Degustator/ContinuousResults";
 import * as action from "../store/actions/index";
 import { isIdValid, isRatingValid } from "../utils/validation";
 import Toast from "../components/UI/Toast";
+import OwnModal from "../components/HOC/Modal";
 
 const DegustatorScreen = (props) => {
   const initialStyleState = {
@@ -24,6 +25,7 @@ const DegustatorScreen = (props) => {
   const [isActive, setIsActive] = useState(initialStyleState);
   const [selectedWineId, setSelectedWineId] = useState();
   const [isWineIdValid, setIsWineIdValid] = useState(false);
+  const [isModalShow, setIsModalShow] = useState(false);
 
   const { onFetchWineInGroups } = props;
   useEffect(() => {
@@ -53,11 +55,15 @@ const DegustatorScreen = (props) => {
     }
   };
 
-  let message = '';
+  const toggleModalHandler = () => {
+    setIsModalShow((prevState) => !prevState.isModalShow);
+  };
+
+  let message = "";
   if (props.error) {
-    message = props.error.message
+    message = props.error.message;
   } else if (props.isSucces) {
-    message = props.successMessage
+    message = props.successMessage;
   }
   return (
     <View style={styles.mainContainer}>
@@ -65,6 +71,9 @@ const DegustatorScreen = (props) => {
         source={require("../assets/wine_background.jpg")}
         style={styles.background}
       >
+        <OwnModal isVisible={isModalShow}>
+          <Text style={{ color: "white" }}>Modal</Text>
+        </OwnModal>
         <View style={styles.componetContainer}>
           <DegTable
             btnPress={btnPressHandler}
@@ -87,9 +96,10 @@ const DegustatorScreen = (props) => {
               props.eliminated
             )}
             isWineIdValid={isWineIdValid}
+            toggleModal={toggleModalHandler}
           />
         </View>
-          <Toast visible={props.error || props.isSucces} message={message} />
+        <Toast visible={props.error || props.isSucces} message={message} />
       </ImageBackground>
     </View>
   );
@@ -120,7 +130,7 @@ const mapStateToProps = (state) => {
     idOptions: state.wineInfo.wineInGroups || [],
     error: state.wineInfo.error,
     isSucces: state.wineInfo.isSucces,
-    successMessage: state.wineInfo.message
+    successMessage: state.wineInfo.message,
   };
 };
 
