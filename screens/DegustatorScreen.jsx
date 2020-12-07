@@ -8,6 +8,7 @@ import * as action from "../store/actions/index";
 import { isIdValid, isRatingValid } from "../utils/validation";
 import Toast from "../components/UI/Toast";
 import OwnModal from "../components/HOC/Modal";
+import ResumeResults from "../components/Degustator/ResumeResults";
 
 const DegustatorScreen = (props) => {
   const initialStyleState = {
@@ -22,6 +23,7 @@ const DegustatorScreen = (props) => {
     tasteQuality: [false, false, false, false, false],
     generalImpresion: [false, false, false, false, false],
   };
+
   const [isActive, setIsActive] = useState(initialStyleState);
   const [selectedWineId, setSelectedWineId] = useState();
   const [isWineIdValid, setIsWineIdValid] = useState(false);
@@ -56,7 +58,7 @@ const DegustatorScreen = (props) => {
   };
 
   const toggleModalHandler = () => {
-    setIsModalShow((prevState) => !prevState.isModalShow);
+    setIsModalShow((prevState) => !prevState);
   };
 
   let message = "";
@@ -65,6 +67,7 @@ const DegustatorScreen = (props) => {
   } else if (props.isSucces) {
     message = props.successMessage;
   }
+
   return (
     <View style={styles.mainContainer}>
       <ImageBackground
@@ -72,7 +75,7 @@ const DegustatorScreen = (props) => {
         style={styles.background}
       >
         <OwnModal isVisible={isModalShow}>
-          <Text style={{ color: "white" }}>Modal</Text>
+          <ResumeResults cancel={toggleModalHandler} />
         </OwnModal>
         <View style={styles.componetContainer}>
           <DegTable
