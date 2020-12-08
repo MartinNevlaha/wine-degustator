@@ -63,6 +63,27 @@ const DegustatorScreen = (props) => {
   };
 
   const sendResultsHandler = () => {
+    let data = {};
+    if (props.results.eliminated) {
+      data = {
+        comNumber: "",
+        degNumber: "",
+        wineId: props.results.wineId,
+        eliminated: props.results.eliminated,
+        comment: props.results.comment,
+      }
+    } else {
+      data = {
+        comNumber: "",
+        degNumber: "",
+        wineId: props.results.wineId,
+        eliminated: props.results.eliminated,
+        wineCategory: props.results.wineCategory,
+        totalSum: props.results.totalSum,
+        comment: props.results.comment,
+        results: props.results.results
+      }
+    }
     props.onSendResults();
     toggleModalHandler();
   };

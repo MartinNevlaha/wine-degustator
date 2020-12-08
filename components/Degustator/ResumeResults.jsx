@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { View, Image, Button, StyleSheet } from "react-native";
 
 import Colors from "../../constants/Colors";

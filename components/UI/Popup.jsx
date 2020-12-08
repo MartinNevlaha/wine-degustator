@@ -3,9 +3,9 @@ import { View, Text, Modal, StyleSheet } from "react-native";
 
 const Popup = (props) => {
   return (
-    <View>
-      <Text>Message</Text>
-    </View>
+    <Modal>
+      
+    </Modal>
   );
 };
 
