@@ -30,4 +30,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OwnButton;
+export default React.memo(OwnButton, (props, nextProps) => {
+  if (props.isActive === nextProps.isActive) {
+    return true;
+  }
+});
