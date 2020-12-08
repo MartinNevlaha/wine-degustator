@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, ImageBackground, StyleSheet, Modal, Text } from "react-native";
+import { View, ImageBackground, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 
 import DegTable from "../components/Degustator/DegTable";
@@ -52,6 +52,7 @@ const DegustatorScreen = (props) => {
     const selectedId = props.idOptions.filter((item) => item._id === value);
     setSelectedWineId(value);
     setIsWineIdValid(isIdValid(selectedId[0].id));
+    props.onGetWineId(selectedId[0].id);
     if (value !== "empty") {
       props.onFetchWineInfo(selectedId[0].id);
     }
@@ -59,6 +60,11 @@ const DegustatorScreen = (props) => {
 
   const toggleModalHandler = () => {
     setIsModalShow((prevState) => !prevState);
+  };
+
+  const sendResultsHandler = () => {
+    props.onSendResults();
+    toggleModalHandler();
   };
 
   let message = "";
@@ -75,7 +81,11 @@ const DegustatorScreen = (props) => {
         style={styles.background}
       >
         <OwnModal isVisible={isModalShow}>
-          <ResumeResults cancel={toggleModalHandler} />
+          <ResumeResults
+            cancel={toggleModalHandler}
+            submit={sendResultsHandler}
+            sendData={props.results}
+          />
         </OwnModal>
         <View style={styles.componetContainer}>
           <DegTable
@@ -146,6 +156,8 @@ const mapDispatchToProps = (dispatch) => {
     onGetComment: (text) => dispatch(action.getComment(text)),
     onFetchWineInGroups: () => dispatch(action.fetchWineInGroup()),
     onFetchWineInfo: (wineId) => dispatch(action.fetchWineinfo(wineId)),
+    onSendResults: () => dispatch(action.resultsSend()),
+    onGetWineId: (id) => dispatch(action.getWineId(id)),
   };
 };
 

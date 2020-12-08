@@ -7,13 +7,13 @@ const TableElement = (props) => {
   return (
     <View style={styles.classWrapper}>
       <OwnText>{props.title}</OwnText>
-      <View style={styles.btnContainer}>{props.btnType}</View>
+      <View style={styles.container}>{props.children}</View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  btnContainer: {
+  container: {
     flexDirection: "row",
   },
   classWrapper: {

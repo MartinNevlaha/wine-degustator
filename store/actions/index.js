@@ -2,6 +2,7 @@ export {
   getEliminatedStatus,
   getDegustatorBtnPress,
   getComment,
+  getWineId,
 } from "../actions/degustation";
 
 export {

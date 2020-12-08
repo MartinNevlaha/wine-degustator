@@ -95,37 +95,35 @@ const DegTable = (props) => {
         <WineInfo />
       </View>
       <TableFormater headTitle="">
-        <TableElement btnType={emoji} title="" />
+        <TableElement title="">{emoji}</TableElement>
       </TableFormater>
       <TableFormater headTitle="Vzhľad" type="dark">
-        <TableElement btnType={btnsLookClarity} title="Čirosť" />
-        <TableElement
-          btnType={btnslookOutOfClarity}
-          title="Vzhľad mimo čírosť"
-        />
+        <TableElement title="Čirosť">{btnsLookClarity}</TableElement>
+        <TableElement title="Vzhľad mimo čírosť">
+          {btnslookOutOfClarity}
+        </TableElement>
       </TableFormater>
       <TableFormater headTitle="Vôňa">
-        <TableElement btnType={btnsSmellPurity} title="Čistota" />
-        <TableElement
-          btnType={btnsSmellPossitiveIntesity}
-          title="Pozitívna intenzita"
-        />
-        <TableElement btnType={btnsSmellQuality} title="Kvalita" />
+        <TableElement title="Čistota">{btnsSmellPurity}</TableElement>
+        <TableElement title="Pozitívna intenzita">
+          {btnsSmellPossitiveIntesity}
+        </TableElement>
+        <TableElement title="Kvalita">{btnsSmellQuality}</TableElement>
       </TableFormater>
       <TableFormater headTitle="Chuť" type="dark">
-        <TableElement btnType={btnsTastePurity} title="Čistota" />
-        <TableElement
-          btnType={btnsTastePossitiveIntesity}
-          title="Pozitívna intenzita"
-        />
-        <TableElement
-          btnType={btnsTasteHarmonicPersistence}
-          title="Harmonická perzistencia"
-        />
-        <TableElement btnType={btnsTasteQuality} title="Kvalita" />
+        <TableElement title="Čistota">{btnsTastePurity}</TableElement>
+        <TableElement title="Pozitívna intenzita">
+          {btnsTastePossitiveIntesity}
+        </TableElement>
+        <TableElement title="Harmonická perzistencia">
+          {btnsTasteHarmonicPersistence}
+        </TableElement>
+        <TableElement title="Kvalita">{btnsTasteQuality}</TableElement>
       </TableFormater>
       <TableFormater title="">
-        <TableElement btnType={btnsGeneralImpresion} title="Celkový dojem" />
+        <TableElement title="Celkový dojem">
+          {btnsGeneralImpresion}
+        </TableElement>
       </TableFormater>
     </View>
   );
@@ -165,7 +163,7 @@ const styles = StyleSheet.create({
   },
   errorContainer: {
     width: "40%",
-  }
+  },
 });
 
 const mapStateToProps = (state) => ({

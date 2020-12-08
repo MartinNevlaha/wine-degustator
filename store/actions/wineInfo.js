@@ -153,6 +153,7 @@ export const resetResults = () => {
 };
 
 export const resultsSend = (data) => {
+  console.log('send')
   return (dispatch) => {
     dispatch(resultsSendStart());
     axios

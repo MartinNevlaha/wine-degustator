@@ -7,7 +7,7 @@ const OwnButton = (props) => {
   return (
     <View style={styles.btnWrapper}>
       <Button
-        {...props}
+        disabled={props.disabled}
         title={props.title.toString()}
         onPress={() => props.btnPress(props.title, props.btnType, props.index)}
         color={!props.isActive ? Colors.btnColor : Colors.btnActive}
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 });
 
 export default React.memo(OwnButton, (props, nextProps) => {
-  if (props.isActive === nextProps.isActive) {
+  if (props.disabled === nextProps.disabled && props.isActive === nextProps.isActive ) {
     return true;
   }
 });
