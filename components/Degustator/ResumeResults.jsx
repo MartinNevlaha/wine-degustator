@@ -1,5 +1,11 @@
-import React, {useEffect} from "react";
-import { View, Image, Button, StyleSheet } from "react-native";
+import React from "react";
+import {
+  View,
+  Image,
+  Button,
+  ActivityIndicator,
+  StyleSheet,
+} from "react-native";
 
 import Colors from "../../constants/Colors";
 import OwnText from "../UI/Text";
@@ -7,8 +13,8 @@ import TableFormater from "../HOC/TableFormater";
 import TableElement from "../Degustator/TableElement";
 
 const ResumeResults = (props) => {
-  return (
-    <View style={styles.container}>
+  let content = (
+    <React.Fragment>
       <OwnText style={styles.title}>Vaše hodnotenie</OwnText>
       <OwnText>Víno číslo: {props.sendData.wineId}</OwnText>
       <View style={styles.imgContainer}>
@@ -126,19 +132,37 @@ const ResumeResults = (props) => {
           />
         </View>
       </View>
-    </View>
+    </React.Fragment>
   );
+  if (props.loading) {
+    content= (<ActivityIndicator size="large" color="white" />)
+  }
+  return <View style={!props.loading ? styles.container: styles.containerLoader}>{content}</View>;
 };
 
 const styles = StyleSheet.create({
   container: {
     width: "50%",
+    minWidth: "50%",
+    minHeight: "30%",
     backgroundColor: Colors.primary,
     borderWidth: 1,
     borderColor: "white",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "flex-start",
+    elevation: 10,
+  },
+  containerLoader: {
+    width: "50%",
+    minWidth: "50%",
+    minHeight: "30%",
+    backgroundColor: Colors.primary,
+    borderWidth: 1,
+    borderColor: "white",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
     elevation: 10,
   },
   title: {
@@ -160,7 +184,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    margin: 20
+    margin: 20,
   },
   btn: {
     width: 120,
@@ -182,7 +206,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     overflow: "hidden",
-    elevation: 10
+    elevation: 10,
   },
   values: {
     marginHorizontal: 50,

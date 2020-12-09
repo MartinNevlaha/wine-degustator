@@ -120,6 +120,12 @@ export const fetchWineInGroup = () => {
   };
 };
 
+export const resultsSendInit = () => {
+  return {
+    type: actionTypes.RESULTS_SEND_INIT
+  }
+}
+
 export const resultsSendStart = () => {
   return {
     type: actionTypes.RESULTS_SEND_START,

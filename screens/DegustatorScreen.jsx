@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, ImageBackground, StyleSheet } from "react-native";
 import { connect } from "react-redux";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import DegTable from "../components/Degustator/DegTable";
 import ContinuosResults from "../components/Degustator/ContinuousResults";
@@ -27,7 +28,6 @@ const DegustatorScreen = (props) => {
   const [isActive, setIsActive] = useState(initialStyleState);
   const [selectedWineId, setSelectedWineId] = useState();
   const [isWineIdValid, setIsWineIdValid] = useState(false);
-  const [isModalShow, setIsModalShow] = useState(false);
 
   const { onFetchWineInGroups } = props;
   useEffect(() => {
@@ -58,10 +58,6 @@ const DegustatorScreen = (props) => {
     }
   };
 
-  const toggleModalHandler = () => {
-    setIsModalShow((prevState) => !prevState);
-  };
-
   const sendResultsHandler = () => {
     let data = {};
     if (props.results.eliminated) {
@@ -71,7 +67,7 @@ const DegustatorScreen = (props) => {
         wineId: props.results.wineId,
         eliminated: props.results.eliminated,
         comment: props.results.comment,
-      }
+      };
     } else {
       data = {
         comNumber: "",
@@ -81,11 +77,10 @@ const DegustatorScreen = (props) => {
         wineCategory: props.results.wineCategory,
         totalSum: props.results.totalSum,
         comment: props.results.comment,
-        results: props.results.results
-      }
+        results: props.results.results,
+      };
     }
     props.onSendResults();
-    toggleModalHandler();
   };
 
   let message = "";
@@ -101,9 +96,10 @@ const DegustatorScreen = (props) => {
         source={require("../assets/wine_background.jpg")}
         style={styles.background}
       >
-        <OwnModal isVisible={isModalShow}>
+        <OwnModal isVisible={props.sending}>
           <ResumeResults
-            cancel={toggleModalHandler}
+            loading={props.loading}
+            cancel={props.onResultSendCanceled}
             submit={sendResultsHandler}
             sendData={props.results}
           />
@@ -130,7 +126,7 @@ const DegustatorScreen = (props) => {
               props.eliminated
             )}
             isWineIdValid={isWineIdValid}
-            toggleModal={toggleModalHandler}
+            toggleModal={props.onResulsSendInit}
           />
         </View>
         <Toast visible={props.error || props.isSucces} message={message} />
@@ -161,10 +157,12 @@ const mapStateToProps = (state) => {
     wineCategory: state.degReducer.wineCategory,
     totalSum: state.degReducer.totalSum,
     comment: state.degReducer.comment,
-    idOptions: state.wineInfo.wineInGroups || [],
+    idOptions: state.wineInfo.wineInGroups,
     error: state.wineInfo.error,
     isSucces: state.wineInfo.isSucces,
     successMessage: state.wineInfo.message,
+    sending: state.wineInfo.sending,
+    loading: state.wineInfo.loading,
   };
 };
 
@@ -179,6 +177,8 @@ const mapDispatchToProps = (dispatch) => {
     onFetchWineInfo: (wineId) => dispatch(action.fetchWineinfo(wineId)),
     onSendResults: () => dispatch(action.resultsSend()),
     onGetWineId: (id) => dispatch(action.getWineId(id)),
+    onResulsSendInit: () => dispatch(action.resultsSendInit()),
+    onResultSendCanceled: () => dispatch(action.resultsSendCanceled()),
   };
 };
 

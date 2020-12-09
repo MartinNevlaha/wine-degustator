@@ -31,7 +31,7 @@ export const DegustatorNavigation = () => {
   return (
     <DegustatorStackNavigator.Navigator screenOptions={defaultNavOpt}>
       <DegustatorStackNavigator.Screen
-        name="Degustácia"
+        name="Degustation"
         component={DegustatorScreen}
       />
     </DegustatorStackNavigator.Navigator>

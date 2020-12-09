@@ -9,4 +9,6 @@ export {
   fetchWineinfo,
   fetchWineInGroup,
   resultsSend,
+  resultsSendInit,
+  resultsSendCanceled
 } from "../actions/wineInfo";
