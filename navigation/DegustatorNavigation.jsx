@@ -16,6 +16,8 @@ import DegustatorScreen, {
 import ResultsScreen, {
   screenOptions as resScreenOpt,
 } from "../screens/ResultsScreen";
+import { ColorAndroid } from "react-native/Libraries/StyleSheet/PlatformColorValueTypesAndroid";
+import Colors from "../constants/Colors";
 
 const defaultNavOpt = {
   headerBackground: () => (
@@ -75,7 +77,9 @@ const WineDegustatorNavigator = createDrawerNavigator();
 
 export const WineNavigation = () => {
   return (
-    <WineDegustatorNavigator.Navigator>
+    <WineDegustatorNavigator.Navigator
+      drawerContentOptions={{ activeTintColor: Colors.btnActive }}
+    >
       <WineDegustatorNavigator.Screen
         name="Degustácia"
         component={DegustatorNavigation}
