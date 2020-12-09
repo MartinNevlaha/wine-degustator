@@ -135,9 +135,13 @@ const ResumeResults = (props) => {
     </React.Fragment>
   );
   if (props.loading) {
-    content= (<ActivityIndicator size="large" color="white" />)
+    content = <ActivityIndicator size="large" color="white" />;
   }
-  return <View style={!props.loading ? styles.container: styles.containerLoader}>{content}</View>;
+  return (
+    <View style={!props.loading ? styles.container : styles.containerLoader}>
+      {content}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
