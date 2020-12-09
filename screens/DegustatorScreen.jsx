@@ -10,6 +10,7 @@ import { isIdValid, isRatingValid } from "../utils/validation";
 import Toast from "../components/UI/Toast";
 import OwnModal from "../components/HOC/Modal";
 import ResumeResults from "../components/Degustator/ResumeResults";
+import HeaderButton from '../components/UI/HeaderButton';
 
 const DegustatorScreen = (props) => {
   const initialStyleState = {
@@ -133,6 +134,17 @@ const DegustatorScreen = (props) => {
       </ImageBackground>
     </View>
   );
+};
+
+export const screenOptions = (navData) => {
+  return {
+    headerTitle: "Degustácia",
+    headerLeft: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item title="Menu" iconName="md-menu" onPress={() => navData.navigation.toggleDrawer()}/>
+      </HeaderButtons>
+    )
+  }
 };
 
 const styles = StyleSheet.create({
