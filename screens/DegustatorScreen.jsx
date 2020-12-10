@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, ImageBackground, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -10,7 +10,7 @@ import { isIdValid, isRatingValid } from "../utils/validation";
 import Toast from "../components/UI/Toast";
 import OwnModal from "../components/HOC/Modal";
 import ResumeResults from "../components/Degustator/ResumeResults";
-import HeaderButton from '../components/UI/HeaderButton';
+import HeaderButton from "../components/UI/HeaderButton";
 
 const DegustatorScreen = (props) => {
   const initialStyleState = {
@@ -31,9 +31,21 @@ const DegustatorScreen = (props) => {
   const [isWineIdValid, setIsWineIdValid] = useState(false);
 
   const { onFetchWineInGroups } = props;
-  useEffect(() => {
+
+  const loadWinInGroups = useCallback(() => {
     onFetchWineInGroups();
   }, [onFetchWineInGroups]);
+
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener("focus", loadWinInGroups);
+    return () => {
+      unsubscribe();
+    };
+  }, [loadWinInGroups]);
+
+  useEffect(() => {
+    loadWinInGroups();
+  }, [loadWinInGroups]);
 
   const btnPressHandler = (value, btnType, index) => {
     props.onDegustatorPressBtn(btnType, +value);
@@ -141,10 +153,14 @@ export const screenOptions = (navData) => {
     headerTitle: "Degustácia",
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item title="Menu" iconName="md-menu" onPress={() => navData.navigation.toggleDrawer()}/>
+        <Item
+          title="Menu"
+          iconName="md-menu"
+          onPress={() => navData.navigation.toggleDrawer()}
+        />
       </HeaderButtons>
-    )
-  }
+    ),
+  };
 };
 
 const styles = StyleSheet.create({

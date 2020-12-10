@@ -16,7 +16,6 @@ import DegustatorScreen, {
 import ResultsScreen, {
   screenOptions as resScreenOpt,
 } from "../screens/ResultsScreen";
-import { ColorAndroid } from "react-native/Libraries/StyleSheet/PlatformColorValueTypesAndroid";
 import Colors from "../constants/Colors";
 
 const defaultNavOpt = {
