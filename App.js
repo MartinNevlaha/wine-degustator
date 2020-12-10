@@ -10,10 +10,12 @@ import AppNavigation from "./navigation/AppNavigation";
 
 import degustationReducer from "./store/reducers/degustation";
 import wineInfoReducer from "./store/reducers/wineInfo";
+import degResultsReducer from "./store/reducers/degResults";
 
 const rootReducer = combineReducers({
   degReducer: degustationReducer,
   wineInfo: wineInfoReducer,
+  degResults: degResultsReducer
 });
 
 const store = createStore(

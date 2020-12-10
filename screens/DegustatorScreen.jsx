@@ -185,7 +185,7 @@ const mapStateToProps = (state) => {
     wineCategory: state.degReducer.wineCategory,
     totalSum: state.degReducer.totalSum,
     comment: state.degReducer.comment,
-    idOptions: state.wineInfo.wineInGroups,
+    idOptions: state.wineInfo.wineInGroups || [],
     error: state.wineInfo.error,
     isSucces: state.wineInfo.isSucces,
     successMessage: state.wineInfo.message,

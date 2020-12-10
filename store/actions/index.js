@@ -12,3 +12,9 @@ export {
   resultsSendInit,
   resultsSendCanceled
 } from "../actions/wineInfo";
+
+export {
+  fetchDegResults,
+  closeDetailResult,
+  fetchDegResultById
+} from '../actions/degResults';
