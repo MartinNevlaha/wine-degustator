@@ -93,11 +93,22 @@ export const WineNavigation = () => {
               start={{ x: 0.7, y: 0 }}
             >
               <SafeAreaView forceInset={{ top: "always", horizontal: "never" }}>
-                <View style={{width: "100%", alignItems: 'center'}}>
-                <View style={styles.logo}>
-                  <Image source={require('../assets/Logo.png')} style={{width: 60, height: 54}}/>
-                  <OwnText style={{color: "red", fontFamily: "open-sans-bold", fontSize: 18}}>Wine Degustator</OwnText>
-                </View>
+                <View style={{ width: "100%", alignItems: "center" }}>
+                  <View style={styles.logo}>
+                    <OwnText
+                      style={{
+                        color: "red",
+                        fontFamily: "open-sans-bold",
+                        fontSize: 18,
+                      }}
+                    >
+                      Wine Degustator
+                    </OwnText>
+                    <Image
+                      source={require("../assets/Logo.png")}
+                      style={{ width: 60, height: 54 }}
+                    />
+                  </View>
                 </View>
                 <DrawerItemList {...props} />
                 <View
@@ -170,7 +181,7 @@ const styles = StyleSheet.create({
     alignItems: "baseline",
     borderBottomWidth: 1,
     borderBottomColor: "white",
-    margin: 10
+    margin: 10,
   },
   imgText: {
     fontSize: 22,
