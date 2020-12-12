@@ -7,7 +7,24 @@ const initialState = {
   loading: false,
   error: null,
   showModal: false,
-  detailedResult: null,
+  detailedResult: {
+    eliminated: false,
+    message: "",
+    results: {
+      generalImpresion: "",
+      lookClarity: "",
+      lookOutOfClarity: "",
+      smellPossitiveIntesity: "",
+      smellPurity: "",
+      smellQuality: "",
+      tasteHarmonicPersistence: "",
+      tastePossitiveIntesity: "",
+      tastePurity: "",
+      tasteQuality: "",
+    },
+    totalSum: "",
+    wineCategory: "",
+  },
 };
 
 const degResultsClearError = (state, action) => {
@@ -77,4 +94,3 @@ export default (state = initialState, action) => {
       return state;
   }
 };
-

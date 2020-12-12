@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { View, ImageBackground, StyleSheet } from "react-native";
+import React, { useEffect, useCallback } from "react";
+import { View, ImageBackground, ActivityIndicator, StyleSheet } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { connect } from "react-redux";
 
@@ -31,6 +31,7 @@ const ResultsScreen = (props) => {
 
   const onClickHandler = (_id) => {
     console.log(_id);
+    props.onFetchDegResultsById(_id);
   };
 
   return (
@@ -38,9 +39,14 @@ const ResultsScreen = (props) => {
       <ImageBackground
         source={require("../assets/wine_background.jpg")}
         style={styles.background}
-      > 
+      >
         <OwnModal isVisible={props.degResults.showModal}>
-
+          <ResumeResults
+            loading={props.degResults.loading}
+            type="degResults"
+            sendData={props.detailedResult}
+            submit={props.onCloseDetailResults}
+          />
         </OwnModal>
         <DegustatorInfo
           degName={props.degResults.degName}
@@ -84,6 +90,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   degResults: state.degResults,
+  detailedResult: state.degResults.detailedResult,
   error: state.degResults.error,
 });
 
