@@ -1,11 +1,17 @@
 import React from "react";
-import { ImageBackground, StyleSheet } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  SafeAreaView,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
   createDrawerNavigator,
   DrawerItemList,
 } from "@react-navigation/drawer";
-import { Ionicons } from "@expo/vector-icons";
+import { Foundation, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
 import OwnText from "../components/UI/Text";
@@ -77,15 +83,66 @@ const WineDegustatorNavigator = createDrawerNavigator();
 export const WineNavigation = () => {
   return (
     <WineDegustatorNavigator.Navigator
-      drawerContentOptions={{ activeTintColor: Colors.btnActive }}
+      drawerContent={(props) => {
+        return (
+          <View style={{ flex: 1, paddingTop: 20 }}>
+            <LinearGradient
+              colors={["#611C2A", "white"]}
+              style={{ flex: 1 }}
+              start={{ x: 0.7, y: 0 }}
+            >
+              <SafeAreaView forceInset={{ top: "always", horizontal: "never" }}>
+                <DrawerItemList {...props} />
+                <View
+                  style={{
+                    width: "100%",
+                    height: "80%",
+                    alignItems: "center",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  <TouchableOpacity
+                    style={{
+                      width: "40%",
+                      padding: 5,
+                      backgroundColor: Colors.btnColor,
+                      alignItems: "center",
+                      borderRadius: 10,
+                      borderWidth: 1,
+                      borderColor: "white",
+                    }}
+                    onPress={() => console.log("logOut")}
+                  >
+                    <OwnText>Odhlásiť</OwnText>
+                  </TouchableOpacity>
+                </View>
+              </SafeAreaView>
+            </LinearGradient>
+          </View>
+        );
+      }}
+      drawerContentOptions={{
+        activeTintColor: 'white',
+        inactiveTintColor: "white",
+      }}
     >
       <WineDegustatorNavigator.Screen
         name="Degustácia"
         component={DegustatorNavigation}
+        options={{
+          drawerIcon: (props) => (
+            <MaterialCommunityIcons name="glass-wine" size={20} color="white" />
+          ),
+        }}
       />
       <WineDegustatorNavigator.Screen
         name="Výsledky"
         component={ResultsNavigation}
+        options={{
+          drawerIcon: (props) => (
+            <Foundation name="results" size={20} color="white" />
+          ),
+        }}
       />
     </WineDegustatorNavigator.Navigator>
   );
