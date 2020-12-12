@@ -1,6 +1,7 @@
 import React from "react";
 import {
   ImageBackground,
+  Image,
   StyleSheet,
   SafeAreaView,
   View,
@@ -92,11 +93,17 @@ export const WineNavigation = () => {
               start={{ x: 0.7, y: 0 }}
             >
               <SafeAreaView forceInset={{ top: "always", horizontal: "never" }}>
+                <View style={{width: "100%", alignItems: 'center'}}>
+                <View style={styles.logo}>
+                  <Image source={require('../assets/Logo.png')} style={{width: 60, height: 54}}/>
+                  <OwnText style={{color: "red", fontFamily: "open-sans-bold", fontSize: 18}}>Wine Degustator</OwnText>
+                </View>
+                </View>
                 <DrawerItemList {...props} />
                 <View
                   style={{
                     width: "100%",
-                    height: "80%",
+                    height: "65%",
                     alignItems: "center",
                     justifyContent: "flex-end",
                   }}
@@ -122,7 +129,7 @@ export const WineNavigation = () => {
         );
       }}
       drawerContentOptions={{
-        activeTintColor: 'white',
+        activeTintColor: "white",
         inactiveTintColor: "white",
       }}
     >
@@ -154,6 +161,16 @@ const styles = StyleSheet.create({
     height: 56,
     justifyContent: "center",
     alignItems: "flex-end",
+  },
+  logo: {
+    width: "90%",
+    height: 56,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "baseline",
+    borderBottomWidth: 1,
+    borderBottomColor: "white",
+    margin: 10
   },
   imgText: {
     fontSize: 22,
