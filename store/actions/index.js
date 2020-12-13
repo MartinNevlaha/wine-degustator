@@ -18,3 +18,5 @@ export {
   closeDetailResult,
   fetchDegResultById
 } from '../actions/degResults';
+
+export { login } from '../actions/Auth';

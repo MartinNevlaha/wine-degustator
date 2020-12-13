@@ -6,8 +6,9 @@ import OwnText from "../../components/UI/Text";
 import Colors from "../../constants/Colors";
 import { isInputNameValid, isInputPassValid } from "../../utils/validation";
 
+
 const LoginInput = (props) => {
-  const [isPassVisible, setIsPassVisible] = useState(false);
+  const [isPassVisible, setIsPassVisible] = useState(true);
   const [loginValues, setLoginValues] = useState({
     name: {
       value: "",
@@ -40,9 +41,12 @@ const LoginInput = (props) => {
       },
     });
   };
-  
   const submitHandler = () => {
-    console.log(loginValues.name.value, loginValues.password.value)
+    const loginData = {
+      name: loginValues.name.value,
+      password: loginValues.password.value
+    }
+    props.submit(loginData)
   }
 
   return (
@@ -128,5 +132,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+
 
 export default LoginInput;

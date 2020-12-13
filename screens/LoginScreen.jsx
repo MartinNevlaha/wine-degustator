@@ -7,10 +7,12 @@ import {
   Image,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { connect } from "react-redux";
 
 import Colors from "../constants/Colors";
 import OwnText from "../components/UI/Text";
 import LoginInput from "../components/UI/LoginInput";
+import * as action from "../store/actions/index";
 
 const LoginScreen = (props) => {
   return (
@@ -25,16 +27,20 @@ const LoginScreen = (props) => {
         start={{ x: 1, y: 0 }}
         style={styles.gradContainer}
       >
-        <View style={styles.loginContainer}>
-          <OwnText style={styles.title}>Prihlásenie</OwnText>
-          <View style={styles.imgContainer}>
-            <Image
-              style={styles.img}
-              source={require("../../assets/glass_wine.png")}
-            />
+        {!props.auth.loading ? (
+          <View style={styles.loginContainer}>
+            <OwnText style={styles.title}>Prihlásenie</OwnText>
+            <View style={styles.imgContainer}>
+              <Image
+                style={styles.img}
+                source={require("../../assets/glass_wine.png")}
+              />
+            </View>
+            <LoginInput submit={props.onLogin} />
           </View>
-          <LoginInput />        
-        </View>
+        ) : (
+          <ActivityIndicator size="large" color="white" />
+        )}
       </LinearGradient>
     </KeyboardAvoidingView>
   );
@@ -56,9 +62,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "white",
     borderRadius: 10,
-    flexDirection: 'column',
+    flexDirection: "column",
     alignItems: "center",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   title: {
     fontFamily: "open-sans-bold",
@@ -75,4 +81,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLogin: (loginData) => dispatch(action.login(loginData)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
