@@ -10,13 +10,13 @@ export {
   fetchWineInGroup,
   resultsSend,
   resultsSendInit,
-  resultsSendCanceled
+  resultsSendCanceled,
 } from "../actions/wineInfo";
 
 export {
   fetchDegResults,
   closeDetailResult,
-  fetchDegResultById
-} from '../actions/degResults';
+  fetchDegResultById,
+} from "../actions/degResults";
 
-export { login } from '../actions/Auth';
+export { login, logout } from "../actions/Auth";

@@ -37,9 +37,10 @@ export const fetchDegResultsFailled = (error) => {
 }
 
 export const fetchDegResults = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
+      const token = getState().auth.token;
       dispatch(fetchDegResultsStart());
-      axios.get('degustator/results')
+      axios.get('degustator/results', axiosOptions(token))
           .then(resp => {
               dispatch(fetchDegResultsSucces(resp.data.degName, resp.data.results))
           })
@@ -80,9 +81,10 @@ export const fetchDegResultByIdFail = (error) => {
 };
 
 export const fetchDegResultById = (_id) => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const token = getState().auth.token;
       dispatch(fetchDegResultByIdStart());
-      axios.get(`degustator/result/${_id}`)
+      axios.get(`degustator/result/${_id}`, axiosOptions(token))
           .then(resp => {
               dispatch(fetchDegResultByIdSucces(resp.data))
           })

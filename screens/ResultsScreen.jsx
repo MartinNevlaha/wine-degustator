@@ -16,11 +16,11 @@ import ResumeResults from "../components/Degustator/ResumeResults";
 import * as action from "../store/actions/index";
 
 const ResultsScreen = (props) => {
-  const { onFetchDegResults } = props;
+  const { onFetchDegResults, token } = props;
 
   const loadDegResults = useCallback(() => {
-    onFetchDegResults();
-  }, [onFetchDegResults]);
+    onFetchDegResults(token);
+  }, [onFetchDegResults, token]);
 
   useEffect(() => {
     const unsubsribe = props.navigation.addListener("focus", loadDegResults);
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
+  token: state.auth.token,
   degResults: state.degResults,
   detailedResult: state.degResults.detailedResult,
   error: state.degResults.error,
@@ -107,7 +108,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchDegResults: () => dispatch(action.fetchDegResults()),
+    onFetchDegResults: (token) => dispatch(action.fetchDegResults(token)),
     onFetchDegResultsById: (_id) => dispatch(action.fetchDegResultById(_id)),
     onCloseDetailResults: () => dispatch(action.closeDetailResult()),
   };

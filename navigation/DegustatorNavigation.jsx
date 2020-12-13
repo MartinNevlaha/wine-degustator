@@ -14,6 +14,7 @@ import {
 } from "@react-navigation/drawer";
 import { Foundation, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { useDispatch } from 'react-redux';
 
 import OwnText from "../components/UI/Text";
 
@@ -25,6 +26,7 @@ import ResultsScreen, {
 } from "../screens/ResultsScreen";
 import Colors from "../constants/Colors";
 import LoginScreen from '../screens/LoginScreen';
+import * as action from '../store/actions/index';
 
 const defaultNavOpt = {
   headerBackground: () => (
@@ -93,6 +95,7 @@ export const LoginNavigation = () => {
 const WineDegustatorNavigator = createDrawerNavigator();
 
 export const WineNavigation = () => {
+  const dispatch = useDispatch();
   return (
     <WineDegustatorNavigator.Navigator
       drawerContent={(props) => {
@@ -140,7 +143,7 @@ export const WineNavigation = () => {
                       borderWidth: 1,
                       borderColor: "white",
                     }}
-                    onPress={() => console.log("logOut")}
+                    onPress={() => dispatch(action.logout())}
                   >
                     <OwnText>Odhlásiť</OwnText>
                   </TouchableOpacity>

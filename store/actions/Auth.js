@@ -1,6 +1,10 @@
 import axios from "../../axios-instance";
+import jwt_decode from "jwt-decode";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import * as actionTypes from "./actionTypes";
+
+let timer;
 
 export const loginStart = () => {
   return {
@@ -8,7 +12,7 @@ export const loginStart = () => {
   };
 };
 
-export const loginSucces = (token, degId, degNumber, role, group, groupId) => {
+export const loginSucces = (token, degId, role, degNumber, group, groupId) => {
   return {
     type: actionTypes.LOGIN_SUCCESS,
     token,
@@ -27,25 +31,80 @@ export const loginFailled = (error) => {
   };
 };
 
-export const login = loginData => {
-  return dispatch => {
-    dispatch(loginStart());
-    axios.post("degustator/login", loginData)
-    .then(resp => console.log(resp))
-    .catch(err => {
-      console.log(err)
-      if (err.response) {
-        const error = {
-            message: err.response.data.message,
-            code: err.response.status
-        }
-        dispatch(degLoginFailled(error));
-    } else {
-        dispatch(degLoginFailled(err))
-    }
-    setTimeout(() => {
-        dispatch(degLoginClearError())
-    }, 2500)
-    })
+export const setDidTryAutoLogin = () => {
+  return {
+    type: actionTypes.SET_DID_TRY_AL
   }
 }
+
+export const logout = () => {
+  clearTimer();
+  AsyncStorage.removeItem("degData");
+  return {
+    type: actionTypes.LOGOUT
+  }
+}
+export const loginClearError = () => {
+  return {
+      type: actionTypes.LOGIN_CLEAR_ERROR,
+  }
+}
+
+export const login = (loginData) => {
+  return (dispatch) => {
+    dispatch(loginStart());
+    axios
+      .post("degustator/login", loginData)
+      .then((res) => {
+        const decodedToken = jwt_decode(res.data.token);
+        const { degId, role, degNumber, group, groupId } = decodedToken;
+        console.log(res.data.token)
+        dispatch(
+          loginSucces(res.data.token, degId, role, degNumber, group, groupId)
+        );
+        const expData = decodedToken.exp - decodedToken.iat;
+        dispatch(setAuthTimeout(expData));
+        dispatch(saveDataToStorage(res.data.token, degId, expData));
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response) {
+          const error = {
+            message: err.response.data.message,
+            code: err.response.status,
+          };
+          dispatch(loginFailled(error));
+        } else {
+          dispatch(loginFailled(err));
+        }
+        setTimeout(() => {
+          dispatch(loginClearError());
+        }, 2500);
+      });
+  };
+};
+
+const saveDataToStorage = (token, degId, expirationData) => {
+  AsyncStorage.setItem(
+    "degData",
+    JSON.stringify({
+      token: token,
+      degId: degId,
+      expiryDate: expirationData,
+    })
+  );
+};
+
+const setAuthTimeout = (exp) => {
+  return (dispatch) => {
+    timer = setTimeout(() => {
+      dispatch(logout());
+    }, exp * 1000);
+  };
+};
+
+const clearTimer = () => {
+  if (timer) {
+    clearTimeout(timer);
+  }
+};
