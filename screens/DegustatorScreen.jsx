@@ -127,7 +127,7 @@ const DegustatorScreen = (props) => {
             getWineId={getWineIdHandler}
           />
           <ContinuosResults
-            degInfo
+            degInfo={props.degInfo}
             totalSum={props.totalSum}
             wineCategory={props.wineCategory}
             eliminated={props.eliminated}
@@ -180,6 +180,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
+    degInfo: state.auth,
     results: state.degReducer,
     eliminated: state.degReducer.eliminated,
     wineCategory: state.degReducer.wineCategory,

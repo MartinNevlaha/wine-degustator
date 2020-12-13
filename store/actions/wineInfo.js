@@ -43,11 +43,12 @@ export const fetchWineInfoFailled = (error) => {
 };
 
 export const fetchWineinfo = (wineId) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const token = getState().auth.token;
     setTimeout(() => {
       dispatch(fetchWineInfoStart());
       axios
-        .get(`degustator/wine-list/${wineId}`)
+        .get(`degustator/wine-list/${wineId}`, axiosOptions(token))
         .then((resp) => {
           dispatch(fetchWineInfoSucces(resp.data.wine));
         })
@@ -90,10 +91,11 @@ export const fetchWineInGroupFailled = (error) => {
 };
 
 export const fetchWineInGroup = () => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const token = getState().auth.token;
     dispatch(fetchWineInGroupStart());
     axios
-      .get("degustator/wine-list-group")
+      .get("degustator/wine-list-group", axiosOptions(token))
       .then((resp) => {
         const wineInGroup = resp.data.wineInGroup;
         const emptyOption = {

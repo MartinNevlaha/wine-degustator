@@ -58,7 +58,6 @@ export const login = (loginData) => {
       .then((res) => {
         const decodedToken = jwt_decode(res.data.token);
         const { degId, role, degNumber, group, groupId } = decodedToken;
-        console.log(res.data.token)
         dispatch(
           loginSucces(res.data.token, degId, role, degNumber, group, groupId)
         );
