@@ -4,11 +4,12 @@ import { Feather, AntDesign } from "@expo/vector-icons";
 
 import OwnText from "../../components/UI/Text";
 import Colors from "../../constants/Colors";
+import QrScanner from "./QrScanner";
 import { isInputNameValid, isInputPassValid } from "../../utils/validation";
-
 
 const LoginInput = (props) => {
   const [isPassVisible, setIsPassVisible] = useState(true);
+  const [isQrScanerShow, setIsQrScannerShow] = useState(false);
   const [loginValues, setLoginValues] = useState({
     name: {
       value: "",
@@ -23,6 +24,7 @@ const LoginInput = (props) => {
   const visibilityTogleHandler = () => {
     setIsPassVisible((prevState) => !prevState);
   };
+
   const validationInput = (key, value) => {
     if (key === "name") {
       return isInputNameValid(value);
@@ -44,50 +46,68 @@ const LoginInput = (props) => {
   const submitHandler = () => {
     const loginData = {
       name: loginValues.name.value,
-      password: loginValues.password.value
-    }
-    props.submit(loginData)
-  }
+      password: loginValues.password.value,
+    };
+    props.submit(loginData);
+  };
 
   return (
     <View style={styles.loginContainer}>
-      <View style={styles.inputWrapper}>
-        <OwnText style={styles.label}>Prihlasovacie meno</OwnText>
-        <TextInput
-          style={styles.input}
-          value={loginValues.name.value}
-          onChangeText={(value) => inputHandler(value, "name")}
-        />
-      </View>
-      <View style={styles.inputWrapper}>
-        <OwnText style={styles.label}>Prihlasovacie heslo</OwnText>
-        <View style={styles.passContainer}>
-          <TextInput
-            style={styles.inputPass}
-            secureTextEntry={isPassVisible}
-            onChangeText={(value) => inputHandler(value, "password")}
-          />
-          <Feather
-            name={isPassVisible ? "eye" : "eye-off"}
-            size={20}
-            color="white"
-            style={{ width: "10%", textAlign: "center" }}
-            onPress={visibilityTogleHandler}
-          />
+      {!isQrScanerShow ? (
+        <React.Fragment>
+          <View style={styles.inputWrapper}>
+            <OwnText style={styles.label}>Prihlasovacie meno</OwnText>
+            <TextInput
+              style={styles.input}
+              value={loginValues.name.value}
+              onChangeText={(value) => inputHandler(value, "name")}
+            />
+          </View>
+          <View style={styles.inputWrapper}>
+            <OwnText style={styles.label}>Prihlasovacie heslo</OwnText>
+            <View style={styles.passContainer}>
+              <TextInput
+                style={styles.inputPass}
+                secureTextEntry={isPassVisible}
+                onChangeText={(value) => inputHandler(value, "password")}
+              />
+              <Feather
+                name={isPassVisible ? "eye" : "eye-off"}
+                size={20}
+                color="white"
+                style={{ width: "10%", textAlign: "center" }}
+                onPress={visibilityTogleHandler}
+              />
+            </View>
+          </View>
+          <View style={styles.btn}>
+            <Button
+              title="Prihlásiť"
+              color={Colors.btnColor}
+              disabled={
+                !(loginValues.name.isValid && loginValues.password.isValid)
+              }
+              onPress={submitHandler}
+            />
+          </View>
+          <View style={styles.qrLoging}>
+            <OwnText>Prihlásenie cez QR kód</OwnText>
+            <AntDesign
+              name="qrcode"
+              size={80}
+              color="white"
+              onPress={() => setIsQrScannerShow(true)}
+            />
+          </View>
+        </React.Fragment>
+      ) : (
+        <View style={styles.qrWrapper}>
+          <QrScanner />
+          <View style={styles.btn}>
+            <Button title="Klasické prihlásenie" color={Colors.btnColor} onPress={()=>setIsQrScannerShow(false)}/>
+          </View>
         </View>
-      </View>
-      <View style={styles.btn}>
-        <Button
-          title="Prihlásiť"
-          color={Colors.btnColor}
-          disabled={!(loginValues.name.isValid && loginValues.password.isValid)}
-          onPress={submitHandler}
-        />
-      </View>
-      <View style={styles.qrLoging}>
-        <OwnText>Prihlásenie cez QR kód</OwnText>
-        <AntDesign name="qrcode" size={80} color="white" />
-      </View>
+      )}
     </View>
   );
 };
@@ -131,7 +151,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
   },
+  qrWrapper: {
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+  },
 });
-
 
 export default LoginInput;
