@@ -12,3 +12,11 @@ export const isRatingValid = (results, eliminateStatus) => {
       return !transformResuls.includes(null);
   }
 }
+
+export const isInputNameValid = (string) => {
+  return validate.isString(string) && string.length > 3;
+}
+
+export const isInputPassValid = (string) => {
+  return validate.isString(string) && string.length > 5
+}

@@ -24,6 +24,7 @@ import ResultsScreen, {
   screenOptions as resScreenOpt,
 } from "../screens/ResultsScreen";
 import Colors from "../constants/Colors";
+import LoginScreen from '../screens/LoginScreen';
 
 const defaultNavOpt = {
   headerBackground: () => (
@@ -78,6 +79,16 @@ export const ResultsNavigation = () => {
     </ResultsStackNavigator.Navigator>
   );
 };
+
+const LoginStackNavigator = createStackNavigator();
+
+export const LoginNavigation = () => {
+  return (
+    <LoginStackNavigator.Navigator screenOptions={defaultNavOpt}>
+      <LoginStackNavigator.Screen name="Login" component={LoginScreen} />
+    </LoginStackNavigator.Navigator>
+  )
+}
 
 const WineDegustatorNavigator = createDrawerNavigator();
 

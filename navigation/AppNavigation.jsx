@@ -1,12 +1,13 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 
-import { WineNavigation } from "./DegustatorNavigation";
+import { WineNavigation, LoginNavigation } from "./DegustatorNavigation";
 
 const AppNavigation = (props) => {
   return (
     <NavigationContainer>
-      <WineNavigation />
+      {false && <WineNavigation />}
+      <LoginNavigation />
     </NavigationContainer>
   );
 };
