@@ -59,8 +59,8 @@ const ResultsScreen = (props) => {
           <React.Fragment>
             <DegustatorInfo
               degName={props.degResults.degName}
-              degustatorNumber="1" //doplnit
-              degGroup="A" //doplnit
+              degustatorNumber={props.auth.degustatorNumber}
+              degGroup={props.auth.group}
             />
             <ResultsTable
               results={props.degResults.results}
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   degResults: state.degResults,
   detailedResult: state.degResults.detailedResult,
   error: state.degResults.error,
