@@ -7,6 +7,7 @@ const initialState = {
   loading: false,
   error: null,
   showModal: false,
+  loadingModal: false,
   detailedResult: {
     eliminated: false,
     message: "",
@@ -49,7 +50,7 @@ const fetchDegResultsFail = (state, action) => {
 
 const fetchDegResultByIdStart = (state, action) => {
   return updateObj(state, {
-    loading: true,
+    loadingModal: true,
     error: null,
     showModal: true,
   });
@@ -57,14 +58,14 @@ const fetchDegResultByIdStart = (state, action) => {
 
 const fetchDegResultByIdSucces = (state, action) => {
   return updateObj(state, {
-    loading: false,
+    loadingModal: false,
     detailedResult: action.result,
   });
 };
 
 const fetchDegResultByIdFail = (state, action) => {
   return updateObj(state, {
-    loading: false,
+    loadingModal: false,
     error: action.error,
   });
 };

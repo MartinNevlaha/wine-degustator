@@ -1,5 +1,10 @@
 import React, { useEffect, useCallback } from "react";
-import { View, ImageBackground, StyleSheet } from "react-native";
+import {
+  View,
+  ImageBackground,
+  ActivityIndicator,
+  StyleSheet,
+} from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { connect } from "react-redux";
 
@@ -42,21 +47,27 @@ const ResultsScreen = (props) => {
       >
         <OwnModal isVisible={props.degResults.showModal}>
           <ResumeResults
-            loading={props.degResults.loading}
+            loading={props.degResults.loadingModal}
             type="degResults"
             sendData={props.detailedResult}
             submit={props.onCloseDetailResults}
           />
         </OwnModal>
-        <DegustatorInfo
-          degName={props.degResults.degName}
-          degustatorNumber="1" //doplnit
-          degGroup="A" //doplnit
-        />
-        <ResultsTable
-          results={props.degResults.results}
-          clicked={onClickHandler}
-        />
+        {props.degResults.loading ? (
+          <ActivityIndicator size="large" color="white" />
+        ) : (
+          <React.Fragment>
+            <DegustatorInfo
+              degName={props.degResults.degName}
+              degustatorNumber="1" //doplnit
+              degGroup="A" //doplnit
+            />
+            <ResultsTable
+              results={props.degResults.results}
+              clicked={onClickHandler}
+            />
+          </React.Fragment>
+        )}
       </ImageBackground>
     </View>
   );
