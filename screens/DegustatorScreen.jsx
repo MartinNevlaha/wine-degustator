@@ -93,7 +93,7 @@ const DegustatorScreen = (props) => {
         results: props.results.results,
       };
     }
-    props.onSendResults();
+    props.onSendResults(data);
   };
 
   let message = "";
@@ -204,7 +204,7 @@ const mapDispatchToProps = (dispatch) => {
     onGetComment: (text) => dispatch(action.getComment(text)),
     onFetchWineInGroups: () => dispatch(action.fetchWineInGroup()),
     onFetchWineInfo: (wineId) => dispatch(action.fetchWineinfo(wineId)),
-    onSendResults: () => dispatch(action.resultsSend()),
+    onSendResults: (data) => dispatch(action.resultsSend(data)),
     onGetWineId: (id) => dispatch(action.getWineId(id)),
     onResulsSendInit: () => dispatch(action.resultsSendInit()),
     onResultSendCanceled: () => dispatch(action.resultsSendCanceled()),

@@ -161,11 +161,11 @@ export const resetResults = () => {
 };
 
 export const resultsSend = (data) => {
-  console.log('send')
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const token = getState().auth.token;
     dispatch(resultsSendStart());
     axios
-      .post("degustator/results", data)
+      .post("degustator/results", data, axiosOptions(token))
       .then((response) => {
         dispatch(
           resultsSendSucces(response.data.name, data, response.data.message)
