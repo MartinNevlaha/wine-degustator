@@ -94,6 +94,7 @@ const DegustatorScreen = (props) => {
       };
     }
     props.onSendResults(data);
+    setIsActive(initialStyleState);
   };
 
   let message = "";
