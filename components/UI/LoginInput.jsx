@@ -102,9 +102,13 @@ const LoginInput = (props) => {
         </React.Fragment>
       ) : (
         <View style={styles.qrWrapper}>
-          <QrScanner />
+          <QrScanner qrScanSubmit={props.submit} />
           <View style={styles.btn}>
-            <Button title="Klasické prihlásenie" color={Colors.btnColor} onPress={()=>setIsQrScannerShow(false)}/>
+            <Button
+              title="Klasické prihlásenie"
+              color={Colors.btnColor}
+              onPress={() => setIsQrScannerShow(false)}
+            />
           </View>
         </View>
       )}
