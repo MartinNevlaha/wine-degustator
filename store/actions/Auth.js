@@ -86,8 +86,7 @@ const saveDataToStorage = (token, degId) => {
   AsyncStorage.setItem(
     "degData",
     JSON.stringify({
-      token: token,
-      degId: degId,
+      token: token
     })
   );
 };

@@ -19,10 +19,12 @@ const StartUpScreen = (props) => {
       }
       const transformDegData = JSON.parse(degData);
       const { token } = transformDegData;
-
       const decodedToken = jwt_decode(token);
       const actualTime = Date.now() / 1000;
-      if (decodedToken.exp <= actualTime || !token || !degId) {
+
+      console.log(decodedToken.exp, actualTime)
+      
+      if (decodedToken.exp <= actualTime || !token ) {
         dispatch(action.setDidTryAutoLogin());
         return;
       }
