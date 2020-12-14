@@ -5,9 +5,11 @@ import {
   KeyboardAvoidingView,
   ActivityIndicator,
   Image,
+  Platform
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { connect } from "react-redux";
+import { useHeaderHeight } from "@react-navigation/stack";
 
 import Colors from "../constants/Colors";
 import OwnText from "../components/UI/Text";
@@ -15,11 +17,13 @@ import LoginInput from "../components/UI/LoginInput";
 import * as action from "../store/actions/index";
 
 const LoginScreen = (props) => {
+  const headerHeight = useHeaderHeight();
   return (
     <KeyboardAvoidingView
-      behavior="padding"
-      keyboardVerticalOffset={50}
+      behavior={Platform.OS === "android" ? "" : "position"}
+      enabled
       style={styles.container}
+      keyboardVerticalOffset={headerHeight + 10}
     >
       <LinearGradient
         colors={["#611C2A", "white"]}
@@ -57,7 +61,7 @@ const styles = StyleSheet.create({
   },
   loginContainer: {
     width: "60%",
-    height: "80%",
+    height: 550,
     backgroundColor: Colors.secondary,
     borderWidth: 1,
     borderColor: "white",
