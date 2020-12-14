@@ -19,4 +19,10 @@ export {
   fetchDegResultById,
 } from "../actions/degResults";
 
-export { login, logout } from "../actions/Auth";
+export {
+  login,
+  loginSucces,
+  logout,
+  setDidTryAutoLogin,
+  setAuthTimeout
+} from "../actions/Auth";

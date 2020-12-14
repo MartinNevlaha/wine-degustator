@@ -106,7 +106,6 @@ export const fetchWineInGroup = () => {
         dispatch(fetchWineInGroupSuccess(wineInGroup));
       })
       .catch((err) => {
-        console.log(err);
         if (err.response) {
           const error = {
             message: err.response.data.message,

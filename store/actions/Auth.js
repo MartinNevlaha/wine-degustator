@@ -63,10 +63,9 @@ export const login = (loginData) => {
         );
         const expData = decodedToken.exp - decodedToken.iat;
         dispatch(setAuthTimeout(expData));
-        dispatch(saveDataToStorage(res.data.token, degId, expData));
+        dispatch(saveDataToStorage(res.data.token, degId));
       })
       .catch((err) => {
-        console.log(err);
         if (err.response) {
           const error = {
             message: err.response.data.message,
@@ -83,18 +82,17 @@ export const login = (loginData) => {
   };
 };
 
-const saveDataToStorage = (token, degId, expirationData) => {
+const saveDataToStorage = (token, degId) => {
   AsyncStorage.setItem(
     "degData",
     JSON.stringify({
       token: token,
       degId: degId,
-      expiryDate: expirationData,
     })
   );
 };
 
-const setAuthTimeout = (exp) => {
+export const setAuthTimeout = (exp) => {
   return (dispatch) => {
     timer = setTimeout(() => {
       dispatch(logout());
