@@ -11,6 +11,15 @@ const StartUpScreen = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const getBaseUrl = async () => {
+      const url = await AsyncStorage.getItem("baseUrl");
+      if (!url) {
+        console.log('url neni')
+        return;
+      }
+      console.log(url)
+      dispatch(action.getBaseUrl(url));
+    };
     const tryAutoLogin = async () => {
       const degData = await AsyncStorage.getItem("degData");
       if (!degData) {
@@ -22,16 +31,19 @@ const StartUpScreen = (props) => {
       const decodedToken = jwt_decode(token);
       const actualTime = Date.now() / 1000;
 
-      console.log(decodedToken.exp, actualTime)
-      
-      if (decodedToken.exp <= actualTime || !token ) {
+      console.log(decodedToken.exp, actualTime);
+
+      if (decodedToken.exp <= actualTime || !token) {
         dispatch(action.setDidTryAutoLogin());
         return;
       }
       const { degId, role, degNumber, group, groupId } = decodedToken;
-      dispatch(action.loginSucces(token, degId, role, degNumber, group, groupId))
-      dispatch(action.setAuthTimeout(decodedToken.exp - decodedToken.iat))
+      dispatch(
+        action.loginSucces(token, degId, role, degNumber, group, groupId)
+      );
+      dispatch(action.setAuthTimeout(decodedToken.exp - decodedToken.iat));
     };
+    getBaseUrl();
     tryAutoLogin();
   }, [dispatch]);
 

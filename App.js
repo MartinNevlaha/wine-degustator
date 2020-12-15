@@ -12,12 +12,14 @@ import degustationReducer from "./store/reducers/degustation";
 import wineInfoReducer from "./store/reducers/wineInfo";
 import degResultsReducer from "./store/reducers/degResults";
 import authReducer from "./store/reducers/Auth";
+import settingsReducer from "./store/reducers/settings";
 
 const rootReducer = combineReducers({
   degReducer: degustationReducer,
   wineInfo: wineInfoReducer,
   degResults: degResultsReducer,
-  auth: authReducer
+  auth: authReducer,
+  settings: settingsReducer
 });
 
 const store = createStore(

@@ -38,3 +38,7 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
 export const LOGIN_CLEAR_ERROR = "LOGIN_CLEAR_ERROR";
 export const SET_DID_TRY_AL = "SET_DID_TRY_AL";
+
+export const SET_BASE_URL = "SET_BASE_URL";
+export const GET_BASE_URL = "GET_BASE_URL";
+export const RESET_BASE_URL = "RESET_BASE_URL";

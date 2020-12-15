@@ -24,5 +24,7 @@ export {
   loginSucces,
   logout,
   setDidTryAutoLogin,
-  setAuthTimeout
+  setAuthTimeout,
 } from "../actions/Auth";
+
+export { getBaseUrl, setBaseUrl, resetBaseUrl } from "../actions/settings";

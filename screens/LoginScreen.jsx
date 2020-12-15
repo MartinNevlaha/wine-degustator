@@ -5,11 +5,13 @@ import {
   KeyboardAvoidingView,
   ActivityIndicator,
   Image,
-  Platform
+  Platform,
+  Button,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { connect } from "react-redux";
 import { useHeaderHeight } from "@react-navigation/stack";
+import { AntDesign } from "@expo/vector-icons";
 
 import Colors from "../constants/Colors";
 import OwnText from "../components/UI/Text";
@@ -41,6 +43,14 @@ const LoginScreen = (props) => {
               />
             </View>
             <LoginInput submit={props.onLogin} />
+            {!props.isBaseUrlSet && (
+              <View style={styles.settings}>
+                <AntDesign name="warning" size={24} color="red" />
+                <OwnText style={styles.warnInfo}>
+                  Nie je nastavená adresa servera!
+                </OwnText>
+              </View>
+            )}
           </View>
         ) : (
           <ActivityIndicator size="large" color="white" />
@@ -83,11 +93,19 @@ const styles = StyleSheet.create({
     width: 50,
     height: 90,
   },
+  warnInfo: {
+    color: "red",
+  },
+  settings: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
 
 const mapStateToProps = (state) => {
   return {
     auth: state.auth,
+    isBaseUrlSet: state.settings.isBaseUrlSet,
   };
 };
 

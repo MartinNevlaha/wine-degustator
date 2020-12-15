@@ -50,6 +50,7 @@ const defaultNavOpt = {
       style={styles.imgContainer}
     >
       <OwnText style={styles.imgText}>Wine Degustator</OwnText>
+      
     </ImageBackground>
   ),
 };
