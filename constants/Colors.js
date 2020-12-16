@@ -3,5 +3,6 @@ export default {
   btnActive: "rgb(182, 24, 24)",
   primary: "rgba(107, 11, 25, 0.733)",
   secondary: "rgba(26, 24, 24, 0.589)",
-  transparentGrey: "rgba(0, 0, 0, 0.6)"
+  transparentGrey: "rgba(0, 0, 0, 0.6)",
+  transparentGrey2: "rgba(0, 0, 0, 0.2)"
 };

@@ -14,7 +14,6 @@ const StartUpScreen = (props) => {
     const getBaseUrl = async () => {
       const url = await AsyncStorage.getItem("baseUrl");
       if (!url) {
-        console.log('url neni')
         return;
       }
       console.log(url)

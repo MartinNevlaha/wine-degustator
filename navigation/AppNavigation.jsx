@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
-import { WineNavigation, LoginNavigation } from "./DegustatorNavigation";
+import { WineNavigation, LoginNavigation, StartUpTabNavigator } from "./DegustatorNavigation";
 import StartUpScreen from "../screens/StartUpScreen";
 
 const AppNavigation = (props) => {
@@ -13,7 +13,7 @@ const AppNavigation = (props) => {
   return (
     <NavigationContainer>
       {isAuth && isDegValid && <WineNavigation />}
-      {!isAuth && didTryAutoLogin && <LoginNavigation />}
+      {!isAuth && didTryAutoLogin && <StartUpTabNavigator />}
       {!isAuth && !didTryAutoLogin && <StartUpScreen />}
     </NavigationContainer>
   );

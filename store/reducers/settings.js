@@ -3,7 +3,7 @@ import { updateObj } from "../../utils/utilities";
 
 const initialState = {
   baseUrl: null,
-  isBaseUrlSet: false
+  isBaseUrlSet: false,
 };
 
 const setBaseUrl = (state, action) => {

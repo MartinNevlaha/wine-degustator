@@ -12,9 +12,10 @@ import {
   createDrawerNavigator,
   DrawerItemList,
 } from "@react-navigation/drawer";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Foundation, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 
 import OwnText from "../components/UI/Text";
 
@@ -25,8 +26,13 @@ import ResultsScreen, {
   screenOptions as resScreenOpt,
 } from "../screens/ResultsScreen";
 import Colors from "../constants/Colors";
-import LoginScreen from '../screens/LoginScreen';
-import * as action from '../store/actions/index';
+import LoginScreen, {
+  screentOptions as logScreenOpt,
+} from "../screens/LoginScreen";
+import * as action from "../store/actions/index";
+import SettingsScreen, {
+  screentOptions as setScreenOpt,
+} from "../screens/SettingsScreen";
 
 const defaultNavOpt = {
   headerBackground: () => (
@@ -50,7 +56,6 @@ const defaultNavOpt = {
       style={styles.imgContainer}
     >
       <OwnText style={styles.imgText}>Wine Degustator</OwnText>
-      
     </ImageBackground>
   ),
 };
@@ -83,15 +88,30 @@ export const ResultsNavigation = () => {
   );
 };
 
-const LoginStackNavigator = createStackNavigator();
+const StartUpNavigator = createBottomTabNavigator();
 
-export const LoginNavigation = () => {
+export const StartUpTabNavigator = () => {
   return (
-    <LoginStackNavigator.Navigator screenOptions={defaultNavOpt}>
-      <LoginStackNavigator.Screen name="Login" component={LoginScreen} />
-    </LoginStackNavigator.Navigator>
-  )
-}
+    <StartUpNavigator.Navigator
+      tabBarOptions={{
+        activeTintColor: Colors.primary,
+        inactiveTintColor: Colors.primary,
+        inactiveBackgroundColor: Colors.transparentGrey2
+      }}
+    >
+      <StartUpNavigator.Screen
+        name="Login"
+        component={LoginScreen}
+        options={logScreenOpt}
+      />
+      <StartUpNavigator.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={setScreenOpt}
+      />
+    </StartUpNavigator.Navigator>
+  );
+};
 
 const WineDegustatorNavigator = createDrawerNavigator();
 

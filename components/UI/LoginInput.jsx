@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, StyleSheet, KeyboardAvoidingView } from "react-native";
+import { View, TextInput, Button, StyleSheet } from "react-native";
 import { Feather, AntDesign } from "@expo/vector-icons";
 
 import OwnText from "../../components/UI/Text";
@@ -102,7 +102,7 @@ const LoginInput = (props) => {
         </React.Fragment>
       ) : (
         <View style={styles.qrWrapper}>
-          <QrScanner qrScanSubmit={props.submit} />
+          <QrScanner qrScanSubmit={props.submit} scanType="object" />
           <View style={styles.btn}>
             <Button
               title="Klasické prihlásenie"

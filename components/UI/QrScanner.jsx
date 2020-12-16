@@ -15,9 +15,20 @@ const QrScanner = (props) => {
     })();
   }, []);
 
+  useEffect(() => {
+    return () => {
+      setScanned(false)
+    };
+  }, []);
+
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    const scanedData = JSON.parse(data);
+    let scanedData;
+    if (props.scanType === "object") {
+      scanedData = JSON.parse(data);
+    } else {
+      scanedData = data;
+    }
     if (!scanedData) {
       Alert.alert("Chyba", "Nepodarilo sa odskenovať QR kód", [{ text: "Ok" }]);
     }

@@ -10,8 +10,8 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { connect } from "react-redux";
-import { useHeaderHeight } from "@react-navigation/stack";
-import { AntDesign } from "@expo/vector-icons";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 
 import Colors from "../constants/Colors";
 import OwnText from "../components/UI/Text";
@@ -19,13 +19,13 @@ import LoginInput from "../components/UI/LoginInput";
 import * as action from "../store/actions/index";
 
 const LoginScreen = (props) => {
-  const headerHeight = useHeaderHeight();
+  const tabBarHeight = useBottomTabBarHeight();
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "android" ? "" : "position"}
       enabled
       style={styles.container}
-      keyboardVerticalOffset={headerHeight + 10}
+      keyboardVerticalOffset={tabBarHeight + 10}
     >
       <LinearGradient
         colors={["#611C2A", "white"]}
@@ -60,6 +60,19 @@ const LoginScreen = (props) => {
   );
 };
 
+export const screentOptions = () => {
+  return {
+    tabBarLabel: "Prihlásenie",
+    tabBarIcon: () => (
+      <Entypo
+        name="login"
+        size={24}
+        color={Colors.primary}
+      />
+    ),
+  };
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -71,7 +84,7 @@ const styles = StyleSheet.create({
   },
   loginContainer: {
     width: "60%",
-    height: 550,
+    height: 570,
     backgroundColor: Colors.secondary,
     borderWidth: 1,
     borderColor: "white",
@@ -83,6 +96,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "open-sans-bold",
     fontSize: 20,
+    margin: 10
   },
   imgContainer: {
     flexDirection: "row",
@@ -97,9 +111,9 @@ const styles = StyleSheet.create({
     color: "red",
   },
   settings: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 
 const mapStateToProps = (state) => {
