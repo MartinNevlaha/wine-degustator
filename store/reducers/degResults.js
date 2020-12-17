@@ -91,6 +91,8 @@ export default (state = initialState, action) => {
       return closeDetailResult(state, action);
     case actionTypes.DEG_RESULTS_CLEAR_ERROR:
       return degResultsClearError(state, action);
+    case actionTypes.LOGOUT:
+      return initialState;
     default:
       return state;
   }

@@ -1,4 +1,4 @@
-import axios from "../../axios-instance";
+import axios from "axios";
 import jwt_decode from "jwt-decode";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -51,10 +51,11 @@ export const loginClearError = () => {
 }
 
 export const login = (loginData) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const baseUrl = getState().settings.baseUrl;
     dispatch(loginStart());
     axios
-      .post("degustator/login", loginData)
+      .post(baseUrl + "/degustator/login", loginData)
       .then((res) => {
         const decodedToken = jwt_decode(res.data.token);
         const { degId, role, degNumber, group, groupId } = decodedToken;

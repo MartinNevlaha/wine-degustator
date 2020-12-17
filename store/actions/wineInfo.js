@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 
-import axios from "../../axios-instance";
+import axios from "axios";
 
 const axiosOptions = (token) => {
   return {
@@ -45,10 +45,11 @@ export const fetchWineInfoFailled = (error) => {
 export const fetchWineinfo = (wineId) => {
   return (dispatch, getState) => {
     const token = getState().auth.token;
+    const baseUrl = getState().settings.baseUrl;
     setTimeout(() => {
       dispatch(fetchWineInfoStart());
       axios
-        .get(`degustator/wine-list/${wineId}`, axiosOptions(token))
+        .get(baseUrl + `/degustator/wine-list/${wineId}`, axiosOptions(token))
         .then((resp) => {
           dispatch(fetchWineInfoSucces(resp.data.wine));
         })
@@ -93,9 +94,10 @@ export const fetchWineInGroupFailled = (error) => {
 export const fetchWineInGroup = () => {
   return (dispatch, getState) => {
     const token = getState().auth.token;
+    const baseUrl = getState().settings.baseUrl;
     dispatch(fetchWineInGroupStart());
     axios
-      .get("degustator/wine-list-group", axiosOptions(token))
+      .get(baseUrl + "/degustator/wine-list-group", axiosOptions(token))
       .then((resp) => {
         const wineInGroup = resp.data.wineInGroup;
         const emptyOption = {
@@ -162,9 +164,10 @@ export const resetResults = () => {
 export const resultsSend = (data) => {
   return (dispatch, getState) => {
     const token = getState().auth.token;
+    const baseUrl = getState().settings.baseUrl;
     dispatch(resultsSendStart());
     axios
-      .post("degustator/results", data, axiosOptions(token))
+      .post(baseUrl + "/degustator/results", data, axiosOptions(token))
       .then((response) => {
         dispatch(
           resultsSendSucces(response.data.name, data, response.data.message)

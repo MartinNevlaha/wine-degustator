@@ -135,6 +135,8 @@ export default (state = initialState, action) => {
       return fetchWineInGroupsFailled(state, action);
     case actionTypes.RESULT_CLEAR_ERROR:
       return resultsClearError(state, action);
+    case actionTypes.LOGOUT:
+      return initialState;
     default:
       return state;
   }

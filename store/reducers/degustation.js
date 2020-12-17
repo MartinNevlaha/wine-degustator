@@ -62,6 +62,8 @@ export default (state = initialState, action) => {
       return degustatorComment(state, action);
     case actionTypes.RESET_RESULTS:
       return initialState;
+    case actionTypes.LOGOUT:
+      return initialState;
     default:
       return state;
   }
