@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert, ActivityIndicator } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 
 import OwnText from "../../components/UI/Text";
@@ -36,7 +36,7 @@ const QrScanner = (props) => {
   };
 
   if (hasPermission === null) {
-    return <OwnText>Requesting for camera permission</OwnText>;
+    return <ActivityIndicator size="large" color="white" />;
   }
   if (hasPermission === false) {
     Alert.alert("Oprávnenie", "Nemám oprávnenie pre používanie kamery", [

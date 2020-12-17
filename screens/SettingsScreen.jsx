@@ -62,6 +62,11 @@ const SettingsScreen = (props) => {
     props.navigation.navigate("Login");
   };
 
+  const resetSettingHandler = async () => {
+    await AsyncStorage.removeItem("baseUrl");
+    dispatch(action.resetBaseUrl());
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "android" ? "" : "position"}
@@ -100,6 +105,13 @@ const SettingsScreen = (props) => {
                     color={Colors.btnColor}
                     disabled={!url.isValid}
                     onPress={onPressBtnSaveHandler}
+                  />
+                </View>
+                <View style={styles.btn}>
+                  <Button
+                    title="Resetuj"
+                    color={Colors.btnColor}
+                    onPress={resetSettingHandler}
                   />
                 </View>
                 <View style={styles.qrScan}>
