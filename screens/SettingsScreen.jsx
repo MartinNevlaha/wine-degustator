@@ -4,7 +4,6 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   TextInput,
-  Image,
   Platform,
   Button,
 } from "react-native";
@@ -19,6 +18,7 @@ import OwnText from "../components/UI/Text";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../store/actions/index";
 import { isUrlValid } from "../utils/validation";
+import PINCode from '../components/UI/PINCode';
 
 const SettingsScreen = (props) => {
   const [isQrScanerShow, setIsQrScannerShow] = useState(false);
@@ -65,8 +65,7 @@ const SettingsScreen = (props) => {
   const resetSettingHandler = async () => {
     await AsyncStorage.removeItem("baseUrl");
     dispatch(action.resetBaseUrl());
-  }
-
+  };
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "android" ? "" : "position"}
@@ -80,25 +79,21 @@ const SettingsScreen = (props) => {
         start={{ x: 1, y: 0 }}
         style={styles.gradContainer}
       >
-        <View style={styles.settingContainer}>
+        {false ?<View style={styles.settingContainer}>
           <OwnText style={styles.title}>Nastavenia</OwnText>
-          <View style={styles.imgContainer}>
-            <Image
-              style={styles.img}
-              source={require("../../assets/glass_wine.png")}
-            />
-          </View>
-          <View style={styles.inputWrapper}>
+          <View style={styles.settingsWrapper}>
             {!isQrScanerShow ? (
               <React.Fragment>
-                <OwnText style={styles.label}>URL adresa servera</OwnText>
-                <TextInput
-                  style={styles.input}
-                  value={url.url}
-                  onChangeText={(value) => getInputHandler(value)}
-                  placeholder={baseUrl}
-                  placeholderTextColor="gray"
-                />
+                <View style={styles.inputContainer}>
+                  <OwnText style={styles.label}>URL adresa servera</OwnText>
+                  <TextInput
+                    style={styles.input}
+                    value={url.url}
+                    onChangeText={(value) => getInputHandler(value)}
+                    placeholder={baseUrl}
+                    placeholderTextColor="gray"
+                  />
+                </View>
                 <View style={styles.btn}>
                   <Button
                     title="Ulož"
@@ -109,7 +104,7 @@ const SettingsScreen = (props) => {
                 </View>
                 <View style={styles.btn}>
                   <Button
-                    title="Resetuj"
+                    title="Resetuj nastavenia"
                     color={Colors.btnColor}
                     onPress={resetSettingHandler}
                   />
@@ -137,7 +132,7 @@ const SettingsScreen = (props) => {
               </View>
             )}
           </View>
-        </View>
+        </View> : <PINCode />}
       </LinearGradient>
     </KeyboardAvoidingView>
   );
@@ -162,8 +157,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   settingContainer: {
-    width: "60%",
-    height: 570,
+    width: "90%",
+    height: "90%",
     backgroundColor: Colors.secondary,
     borderWidth: 1,
     borderColor: "white",
@@ -172,22 +167,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     overflow: "hidden",
   },
+  inputContainer: {
+    width: "100%",
+    justifyContent: 'flex-start'
+  },
   btn: {
     width: "90%",
     margin: 15,
     overflow: "hidden",
     borderRadius: 10,
   },
-  img: {
-    width: 50,
-    height: 90,
-  },
   title: {
     fontFamily: "open-sans-bold",
     fontSize: 20,
     margin: 10,
   },
-  inputWrapper: {
+  settingsWrapper: {
     width: "80%",
     margin: 10,
     justifyContent: "center",

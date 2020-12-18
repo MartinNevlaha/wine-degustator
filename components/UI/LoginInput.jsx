@@ -85,7 +85,7 @@ const LoginInput = (props) => {
               title="Prihlásiť"
               color={Colors.btnColor}
               disabled={
-                !(loginValues.name.isValid && loginValues.password.isValid)
+                !(loginValues.name.isValid && loginValues.password.isValid && props.isBaseUrlSet) 
               }
               onPress={submitHandler}
             />

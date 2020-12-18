@@ -6,7 +6,6 @@ import {
   ActivityIndicator,
   Image,
   Platform,
-  Button,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { connect } from "react-redux";
@@ -42,7 +41,10 @@ const LoginScreen = (props) => {
                 source={require("../../assets/glass_wine.png")}
               />
             </View>
-            <LoginInput submit={props.onLogin} />
+            <LoginInput
+              submit={props.onLogin}
+              isBaseUrlSet={props.isBaseUrlSet}
+            />
             {!props.isBaseUrlSet && (
               <View style={styles.settings}>
                 <AntDesign name="warning" size={24} color="red" />
@@ -63,13 +65,7 @@ const LoginScreen = (props) => {
 export const screentOptions = () => {
   return {
     tabBarLabel: "Prihlásenie",
-    tabBarIcon: () => (
-      <Entypo
-        name="login"
-        size={24}
-        color={Colors.primary}
-      />
-    ),
+    tabBarIcon: () => <Entypo name="login" size={24} color={Colors.primary} />,
   };
 };
 
@@ -96,7 +92,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "open-sans-bold",
     fontSize: 20,
-    margin: 10
+    margin: 10,
   },
   imgContainer: {
     flexDirection: "row",
