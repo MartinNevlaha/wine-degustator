@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -18,18 +18,31 @@ import OwnText from "../components/UI/Text";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../store/actions/index";
 import { isUrlValid } from "../utils/validation";
-import PINCode from '../components/UI/PINCode';
+import PINCode from "../components/UI/PINCode";
 
 const SettingsScreen = (props) => {
   const [isQrScanerShow, setIsQrScannerShow] = useState(false);
-  const tabHeight = useBottomTabBarHeight();
   const [url, setUrl] = useState({
     url: "",
     isValid: false,
   });
-
+  const tabHeight = useBottomTabBarHeight();
   const dispatch = useDispatch();
   const baseUrl = useSelector((state) => state.settings.baseUrl);
+  const isPinValid = useSelector(state => state.settings.pinValid);
+
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener("focus", () => {
+      dispatch(action.clearPin());
+      setUrl({
+        url: "",
+        isValid: false
+      })
+    })
+    return () => {
+      unsubscribe();
+    };
+  }, [dispatch])
 
   const getInputHandler = (value) => {
     setUrl({
@@ -66,6 +79,7 @@ const SettingsScreen = (props) => {
     await AsyncStorage.removeItem("baseUrl");
     dispatch(action.resetBaseUrl());
   };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "android" ? "" : "position"}
@@ -79,60 +93,64 @@ const SettingsScreen = (props) => {
         start={{ x: 1, y: 0 }}
         style={styles.gradContainer}
       >
-        {false ?<View style={styles.settingContainer}>
-          <OwnText style={styles.title}>Nastavenia</OwnText>
-          <View style={styles.settingsWrapper}>
-            {!isQrScanerShow ? (
-              <React.Fragment>
-                <View style={styles.inputContainer}>
-                  <OwnText style={styles.label}>URL adresa servera</OwnText>
-                  <TextInput
-                    style={styles.input}
-                    value={url.url}
-                    onChangeText={(value) => getInputHandler(value)}
-                    placeholder={baseUrl}
-                    placeholderTextColor="gray"
-                  />
+        {isPinValid ? (
+          <View style={styles.settingContainer}>
+            <OwnText style={styles.title}>Nastavenia</OwnText>
+            <View style={styles.settingsWrapper}>
+              {!isQrScanerShow ? (
+                <React.Fragment>
+                  <View style={styles.inputContainer}>
+                    <OwnText style={styles.label}>URL adresa servera</OwnText>
+                    <TextInput
+                      style={styles.input}
+                      value={url.url}
+                      onChangeText={(value) => getInputHandler(value)}
+                      placeholder={baseUrl}
+                      placeholderTextColor="gray"
+                    />
+                  </View>
+                  <View style={styles.btn}>
+                    <Button
+                      title="Ulož"
+                      color={Colors.btnColor}
+                      disabled={!url.isValid}
+                      onPress={onPressBtnSaveHandler}
+                    />
+                  </View>
+                  <View style={styles.btn}>
+                    <Button
+                      title="Resetuj nastavenia"
+                      color={Colors.btnColor}
+                      onPress={resetSettingHandler}
+                    />
+                  </View>
+                  <View style={styles.qrScan}>
+                    <OwnText>Načítaj nastavenia cez QR kód</OwnText>
+                    <AntDesign
+                      name="qrcode"
+                      size={80}
+                      color="white"
+                      onPress={() => setIsQrScannerShow(true)}
+                    />
+                  </View>
+                </React.Fragment>
+              ) : (
+                <View style={styles.qrWrapper}>
+                  <QrScanner qrScanSubmit={saveSettingsHandler} />
+                  <View style={styles.btn}>
+                    <Button
+                      title="Naspäť"
+                      color={Colors.btnColor}
+                      onPress={() => setIsQrScannerShow(false)}
+                    />
+                  </View>
                 </View>
-                <View style={styles.btn}>
-                  <Button
-                    title="Ulož"
-                    color={Colors.btnColor}
-                    disabled={!url.isValid}
-                    onPress={onPressBtnSaveHandler}
-                  />
-                </View>
-                <View style={styles.btn}>
-                  <Button
-                    title="Resetuj nastavenia"
-                    color={Colors.btnColor}
-                    onPress={resetSettingHandler}
-                  />
-                </View>
-                <View style={styles.qrScan}>
-                  <OwnText>Načítaj nastavenia cez QR kód</OwnText>
-                  <AntDesign
-                    name="qrcode"
-                    size={80}
-                    color="white"
-                    onPress={() => setIsQrScannerShow(true)}
-                  />
-                </View>
-              </React.Fragment>
-            ) : (
-              <View style={styles.qrWrapper}>
-                <QrScanner qrScanSubmit={saveSettingsHandler} />
-                <View style={styles.btn}>
-                  <Button
-                    title="Naspäť"
-                    color={Colors.btnColor}
-                    onPress={() => setIsQrScannerShow(false)}
-                  />
-                </View>
-              </View>
-            )}
+              )}
+            </View>
           </View>
-        </View> : <PINCode />}
+        ) : (
+          <PINCode navigation={props.navigation}/>
+        )}
       </LinearGradient>
     </KeyboardAvoidingView>
   );
@@ -169,7 +187,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: "100%",
-    justifyContent: 'flex-start'
+    justifyContent: "flex-start",
   },
   btn: {
     width: "90%",

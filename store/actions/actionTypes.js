@@ -42,3 +42,7 @@ export const SET_DID_TRY_AL = "SET_DID_TRY_AL";
 export const SET_BASE_URL = "SET_BASE_URL";
 export const GET_BASE_URL = "GET_BASE_URL";
 export const RESET_BASE_URL = "RESET_BASE_URL";
+
+export const GET_PIN = "GET_PIN";
+export const CLEAR_PIN = "CLEAR_PIN";
+export const IS_PIN_VALID = "IS_PIN_VALID";

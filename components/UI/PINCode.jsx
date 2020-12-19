@@ -1,29 +1,51 @@
-import React, { useState } from "react";
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  Button,
-  KeyboardAvoidingView,
-} from "react-native";
+import React, { useState, useEffect, createRef } from "react";
+import { View, StyleSheet, Button, KeyboardAvoidingView } from "react-native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import SmoothPinCodeInput from "react-native-smooth-pincode-input";
+import { useDispatch, useSelector } from "react-redux";
 
 import Colors from "../../constants/Colors";
 import OnwText from "./Text";
+import { getPinCode } from "../../utils/pinCode";
+import * as action from "../../store/actions/index";
 
-const PINCode = () => {
-  const initialState = {
-    num1: "",
-    num2: "",
-    num3: "",
-    num4: "",
-  };
+const PINCode = (props) => {
   const tabHeight = useBottomTabBarHeight();
-  const [PIN, setPIN] = useState(initialState);
+  const [PIN, setPIN] = useState("");
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  const pinInput = createRef();
+  const dispatch = useDispatch();
+  const storedPin = useSelector((state) => state.settings.pin);
 
-  const inputHandler = (value, inputType) => {
-    
-  }
+  useEffect(() => {
+    const getPinAsync = async () => {
+      const Pin = await getPinCode();
+      if (!Pin) {
+        return;
+      }
+      dispatch(action.getPin(Pin));
+    };
+    getPinAsync();
+  }, [dispatch, getPinCode]);
+
+  const _checkCode = async (code) => {
+    if (code !== storedPin) {
+      pinInput.current.shake().then(() => setPIN(""));
+      setBtnDisabled(true);
+    } else {
+      setBtnDisabled(false);
+    }
+  };
+
+  const inputHandler = async (value) => {
+    if (value.length !== 4) {
+      setBtnDisabled(true);
+    }
+    setPIN(value);
+  };
+  const submitHandler = () => {
+    dispatch(action.pinValid());
+  };
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -31,34 +53,36 @@ const PINCode = () => {
       enabled
       keyboardVerticalOffset={tabHeight + 10}
     >
-      <OnwText style={styles.title}>Zadaj PIN</OnwText>
-      <View style={styles.pinContainer}>
-        <TextInput
-          style={styles.pinNumber}
-          maxLength={1}
-          keyboardType="number-pad"
-          secureTextEntry={true}
-        />
-        <TextInput
-          style={styles.pinNumber}
-          maxLength={1}
-          keyboardType="number-pad"
-          secureTextEntry={true}
-        />
-        <TextInput
-          style={styles.pinNumber}
-          maxLength={1}
-          keyboardType="number-pad"
-          secureTextEntry={true}
-        />
-        <TextInput
-          style={styles.pinNumber}
-          maxLength={1}
-          keyboardType="number-pad"
-          secureTextEntry={true}
+      <OnwText style={styles.title}>Zadaj PIN kód aplikácie</OnwText>
+      <View style={styles.pinContainer}></View>
+      <SmoothPinCodeInput
+        ref={pinInput}
+        password
+        mask="﹡"
+        value={PIN}
+        onTextChange={(code) => inputHandler(code)}
+        onFulfill={_checkCode}
+        cellStyle={{
+          borderBottomWidth: 2,
+          borderColor: "white",
+        }}
+        cellStyleFocused={{
+          borderColor: "grey",
+        }}
+        textStyle={{
+          fontFamily: "open-sans",
+          fontSize: 24,
+          color: "white",
+        }}
+      />
+      <View style={styles.btn}>
+        <Button
+          title="Ok"
+          color={Colors.btnColor}
+          disabled={btnDisabled}
+          onPress={submitHandler}
         />
       </View>
-      <Button title="Ok" color={Colors.btnColor} />
     </KeyboardAvoidingView>
   );
 };
@@ -79,6 +103,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "open-sans-bold",
+  },
+  btn: {
+    width: 70,
+    margin: 20,
+    borderRadius: 10,
+    overflow: "hidden",
   },
 });
 

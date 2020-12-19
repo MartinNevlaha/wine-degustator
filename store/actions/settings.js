@@ -19,3 +19,22 @@ export const resetBaseUrl = () => {
     type: actionTypes.RESET_BASE_URL,
   };
 };
+
+export const getPin = (pin) => {
+  return {
+    type: actionTypes.GET_PIN,
+    pin
+  }
+}
+
+export const pinValid = () => {
+  return {
+    type: actionTypes.IS_PIN_VALID
+  }
+}
+
+export const clearPin = () => {
+  return {
+    type: actionTypes.CLEAR_PIN
+  }
+}

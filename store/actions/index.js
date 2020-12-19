@@ -27,4 +27,11 @@ export {
   setAuthTimeout,
 } from "../actions/Auth";
 
-export { getBaseUrl, setBaseUrl, resetBaseUrl } from "../actions/settings";
+export {
+  getBaseUrl,
+  setBaseUrl,
+  resetBaseUrl,
+  getPin,
+  clearPin,
+  pinValid
+} from "../actions/settings";

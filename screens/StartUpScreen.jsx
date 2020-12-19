@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import jwt_decode from "jwt-decode";
 
+import { initialisedPinCode } from "../utils/pinCode";
 import Colors from "../constants/Colors";
 import * as action from "../store/actions/index";
 
@@ -16,8 +17,10 @@ const StartUpScreen = (props) => {
       if (!url) {
         return;
       }
-      console.log(url)
       dispatch(action.getBaseUrl(url));
+    };
+    const getPin = async () => {
+      initialisedPinCode();
     };
     const tryAutoLogin = async () => {
       const degData = await AsyncStorage.getItem("degData");
@@ -42,6 +45,7 @@ const StartUpScreen = (props) => {
       );
       dispatch(action.setAuthTimeout(decodedToken.exp - decodedToken.iat));
     };
+    getPin();
     getBaseUrl();
     tryAutoLogin();
   }, [dispatch]);
