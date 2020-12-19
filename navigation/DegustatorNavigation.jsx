@@ -13,7 +13,11 @@ import {
   DrawerItemList,
 } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Foundation, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Foundation,
+  MaterialCommunityIcons,
+  AntDesign,
+} from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useDispatch } from "react-redux";
 
@@ -96,7 +100,7 @@ export const StartUpTabNavigator = () => {
       tabBarOptions={{
         activeTintColor: Colors.primary,
         inactiveTintColor: Colors.primary,
-        inactiveBackgroundColor: Colors.transparentGrey2
+        inactiveBackgroundColor: Colors.transparentGrey2,
       }}
     >
       <StartUpNavigator.Screen

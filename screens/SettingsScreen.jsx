@@ -19,30 +19,34 @@ import { useDispatch, useSelector } from "react-redux";
 import * as action from "../store/actions/index";
 import { isUrlValid } from "../utils/validation";
 import PINCode from "../components/UI/PINCode";
+import OwnModal from "../components/HOC/Modal";
+import PinChange from '../components/UI/PinChange';
 
 const SettingsScreen = (props) => {
   const [isQrScanerShow, setIsQrScannerShow] = useState(false);
+  const [isModalShow, setIsModalShow] = useState(false);
   const [url, setUrl] = useState({
     url: "",
     isValid: false,
   });
+
   const tabHeight = useBottomTabBarHeight();
   const dispatch = useDispatch();
   const baseUrl = useSelector((state) => state.settings.baseUrl);
-  const isPinValid = useSelector(state => state.settings.pinValid);
+  const isPinValid = useSelector((state) => state.settings.pinValid);
 
   useEffect(() => {
     const unsubscribe = props.navigation.addListener("focus", () => {
       dispatch(action.clearPin());
       setUrl({
         url: "",
-        isValid: false
-      })
-    })
+        isValid: false,
+      });
+    });
     return () => {
       unsubscribe();
     };
-  }, [dispatch])
+  }, [dispatch]);
 
   const getInputHandler = (value) => {
     setUrl({
@@ -80,6 +84,10 @@ const SettingsScreen = (props) => {
     dispatch(action.resetBaseUrl());
   };
 
+  const togleModal = () => {
+    setIsModalShow((prevState) => !prevState);
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "android" ? "" : "position"}
@@ -95,12 +103,15 @@ const SettingsScreen = (props) => {
       >
         {isPinValid ? (
           <View style={styles.settingContainer}>
+            <OwnModal isVisible={isModalShow}>
+              <PinChange togleModal={togleModal}/>
+            </OwnModal>
             <OwnText style={styles.title}>Nastavenia</OwnText>
             <View style={styles.settingsWrapper}>
               {!isQrScanerShow ? (
                 <React.Fragment>
                   <View style={styles.inputContainer}>
-                    <OwnText style={styles.label}>URL adresa servera</OwnText>
+                    <OwnText>URL adresa servera</OwnText>
                     <TextInput
                       style={styles.input}
                       value={url.url}
@@ -119,7 +130,7 @@ const SettingsScreen = (props) => {
                   </View>
                   <View style={styles.btn}>
                     <Button
-                      title="Resetuj nastavenia"
+                      title="Resetuj nastavenia url"
                       color={Colors.btnColor}
                       onPress={resetSettingHandler}
                     />
@@ -131,6 +142,13 @@ const SettingsScreen = (props) => {
                       size={80}
                       color="white"
                       onPress={() => setIsQrScannerShow(true)}
+                    />
+                  </View>
+                  <View style={styles.btn}>
+                    <Button
+                      title="Zmeň PIN aplikácie"
+                      color={Colors.btnColor}
+                      onPress={togleModal}
                     />
                   </View>
                 </React.Fragment>
@@ -149,7 +167,7 @@ const SettingsScreen = (props) => {
             </View>
           </View>
         ) : (
-          <PINCode navigation={props.navigation}/>
+          <PINCode navigation={props.navigation} />
         )}
       </LinearGradient>
     </KeyboardAvoidingView>
@@ -224,6 +242,9 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
   },
+  changePinContainer: {
+    width: "50%"
+  }
 });
 
 export default SettingsScreen;

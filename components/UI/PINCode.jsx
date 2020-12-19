@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createRef } from "react";
-import { View, StyleSheet, Button, KeyboardAvoidingView } from "react-native";
+import { View, StyleSheet, Button, KeyboardAvoidingView, Vibration } from "react-native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import SmoothPinCodeInput from "react-native-smooth-pincode-input";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,6 +31,7 @@ const PINCode = (props) => {
   const _checkCode = async (code) => {
     if (code !== storedPin) {
       pinInput.current.shake().then(() => setPIN(""));
+      Vibration.vibrate(1000);
       setBtnDisabled(true);
     } else {
       setBtnDisabled(false);
