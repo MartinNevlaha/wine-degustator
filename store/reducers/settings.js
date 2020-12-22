@@ -32,6 +32,13 @@ const clearPin = (state, action) => {
   return updateObj(state, { pin: null, pinValid: false });
 };
 
+const setNewPin = (state, action) => {
+  return updateObj(state, {
+    pin: action.newPin,
+    pinValid: true
+  })
+}
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_BASE_URL:
@@ -46,6 +53,8 @@ export default (state = initialState, action) => {
       return clearPin(state, action);
     case actionTypes.IS_PIN_VALID:
       return pinValid(state, action);
+    case actionTypes.SET_NEW_PIN:
+      return setNewPin(state, action);
     default:
       return state;
   }

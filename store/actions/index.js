@@ -33,5 +33,6 @@ export {
   resetBaseUrl,
   getPin,
   clearPin,
-  pinValid
+  pinValid,
+  setNewPin
 } from "../actions/settings";

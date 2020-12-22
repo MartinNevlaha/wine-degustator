@@ -29,3 +29,13 @@ export const getPinCode = async () => {
   }
   return PIN;
 };
+
+export const setNewPinCode = async (newPin) => {
+  try {
+    await SecureStore.deleteItemAsync("PIN");
+    await SecureStore.setItemAsync("PIN", newPin);
+    return newPin;
+  } catch (error) {
+    throw error;
+  }
+};

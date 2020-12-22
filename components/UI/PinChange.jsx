@@ -1,36 +1,109 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, TextInput, Button, StyleSheet } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import { useSelector, useDispatch } from "react-redux";
 
 import OwnText from "./Text";
 import Colors from "../../constants/Colors";
+import * as action from "../../store/actions/index";
 
 const PinChange = (props) => {
+  const initialStateOld = {
+    value: "",
+    isValid: false,
+    isTouch: false,
+  };
+  const initialStateNew = {
+    value: "",
+    isTouch: false,
+  };
+  const [oldPinValid, setOldPinValid] = useState(initialStateOld);
+  const [newPinValid, setNewPinValid] = useState(initialStateNew);
+
+  const dispatch = useDispatch();
+
+  const PIN = useSelector((state) => state.settings.pin);
+
+  const pinValidator = (value, oldPin) => {
+    if (value.length === 4 && value === oldPin) {
+      return true;
+    } else if (value.length === 4) {
+      return false;
+    }
+  };
+  const oldPinInputHandler = (value) => {
+    setOldPinValid({
+      value: value,
+      isValid: pinValidator(value, PIN),
+      isTouch: value.length === 4 ? true : false,
+    });
+  };
+
+  const newPinInputHandler = (value) => {
+    setNewPinValid({
+      value: value,
+      isTouch: value.length === 4 ? true : false,
+    });
+  };
+
+  const setNewPinHandler = () => {
+    dispatch(action.setNewPin(newPinValid.value));
+    props.togleModal();
+  };
+
   return (
     <View style={styles.changePinContainer}>
       <View style={styles.inputContainer}>
         <OwnText>Zadaj starý PIN aplikácie</OwnText>
         <TextInput
           style={styles.input}
-          value=""
-          onChangeText={() => {}}
+          value={oldPinValid.value}
+          onChangeText={oldPinInputHandler}
           placeholderTextColor="gray"
+          keyboardType="number-pad"
+          maxLength={4}
+          returnKeyType="next"
+          secureTextEntry={true}
         />
+      </View>
+      <View style={styles.warnInfo}>
+        {!oldPinValid.isValid && oldPinValid.isTouch ? (
+          <React.Fragment>
+            <AntDesign name="warning" size={24} color="red" />
+            <OwnText style={{ padding: 10, color: "red" }}>
+              Zadaný PIN kód sa nezhoduje
+            </OwnText>
+          </React.Fragment>
+        ) : null}
       </View>
       <View style={styles.inputContainer}>
         <OwnText>Zadaj nový PIN aplikácie</OwnText>
         <TextInput
           style={styles.input}
-          value=""
-          onChangeText={() => {}}
+          value={newPinValid.value}
+          onChangeText={newPinInputHandler}
           placeholderTextColor="gray"
+          maxLength={4}
+          returnKeyType="done"
+          secureTextEntry={true}
+          editable={oldPinValid.isValid}
         />
       </View>
       <View style={styles.btnContainer}>
-        <View style={styles.btn}> 
-          <Button title="Späť" color={Colors.btnColor} onPress={props.togleModal}/>
+        <View style={styles.btn}>
+          <Button
+            title="Späť"
+            color={Colors.btnColor}
+            onPress={props.togleModal}
+          />
         </View>
         <View style={styles.btn}>
-          <Button title="Ok" color={Colors.btnColor}/>
+          <Button
+            title="Ok"
+            color={Colors.btnColor}
+            disabled={!(oldPinValid.isValid && newPinValid.isTouch)}
+            onPress={setNewPinHandler}
+          />
         </View>
       </View>
     </View>
@@ -57,12 +130,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "white",
     borderRadius: 10,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   btnContainer: {
     flexDirection: "row",
-    justifyContent: 'space-around',
-    margin: 20
+    justifyContent: "space-around",
+    margin: 20,
   },
   btn: {
     width: 70,
@@ -70,8 +143,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "white",
     borderRadius: 10,
-    overflow: "hidden"
-  }
+    overflow: "hidden",
+  },
+  warnInfo: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+  },
 });
 
 export default PinChange;

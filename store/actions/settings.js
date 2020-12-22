@@ -1,4 +1,5 @@
 import * as actionTypes from "./actionTypes";
+import { setNewPinCode } from "../../utils/pinCode";
 
 export const setBaseUrl = (url) => {
   return {
@@ -23,18 +24,36 @@ export const resetBaseUrl = () => {
 export const getPin = (pin) => {
   return {
     type: actionTypes.GET_PIN,
-    pin
-  }
-}
+    pin,
+  };
+};
 
 export const pinValid = () => {
   return {
-    type: actionTypes.IS_PIN_VALID
-  }
-}
+    type: actionTypes.IS_PIN_VALID,
+  };
+};
 
 export const clearPin = () => {
   return {
-    type: actionTypes.CLEAR_PIN
-  }
-}
+    type: actionTypes.CLEAR_PIN,
+  };
+};
+
+export const setNewPinSucces = (newPin) => {
+  return {
+    type: actionTypes.SET_NEW_PIN_SUCCESS,
+    newPin,
+  };
+};
+
+export const setNewPin = (newPin) => {
+  return (dispatch) => {
+    setNewPinCode(newPin)
+      .then((res) => {
+        console.log(res)
+        dispatch(setNewPinSucces(res));
+      })
+      .catch((err) => console.log(err));
+  };
+};
