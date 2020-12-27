@@ -2,10 +2,13 @@ import React from "react";
 import { View, TextInput, Button, StyleSheet } from "react-native";
 import CheckBox from "@react-native-community/checkbox";
 import { connect } from "react-redux";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 import Colors from "../../constants/Colors";
 import OwnText from "../UI/Text";
-import * as action from '../../store/actions/index';
 
 const ContinuosResults = (props) => {
   return (
@@ -70,8 +73,8 @@ const ContinuosResults = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "25%",
-    height: "100%",
+    width: wp("25%"),
+    height: hp("80%"),
     backgroundColor: Colors.primary,
     borderColor: "white",
     borderWidth: 1,
@@ -81,9 +84,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "open-sans-bold",
-    fontSize: 24,
+    fontSize: hp("3.3%"),
     textAlign: "center",
-    marginBottom: 20,
+    marginBottom: hp("2.5%"),
   },
   inputContainer: {
     flexDirection: "row",
@@ -99,7 +102,7 @@ const styles = StyleSheet.create({
   },
   check: {
     fontFamily: "open-sans-bold",
-    marginVertical: 5,
+    marginVertical: wp("1%"),
   },
   commentInput: {
     height: "20%",
@@ -111,7 +114,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     overflow: "hidden",
-    marginVertical: 10,
+    marginVertical: hp("2%"),
   },
   warnText: {
     fontFamily: "open-sans-bold",

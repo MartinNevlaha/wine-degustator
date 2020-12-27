@@ -1,5 +1,8 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import {
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 
 import OwnText from "../UI/Text";
 import Colors from "../../constants/Colors";
@@ -35,7 +38,7 @@ const styles = StyleSheet.create({
   headWrapper: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 20
+    paddingHorizontal: wp("1%")
   }
 });
 

@@ -1,6 +1,10 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const WineInput = (props) => {
   return (
@@ -10,9 +14,9 @@ const WineInput = (props) => {
           backgroundColor: "grey",
           color: "blue",
           fontFamily: "open-sans",
-          fontSize: 17,
+          fontSize: hp("1%"),
         }}
-        style={{ height: 20, width: 80 }}
+        style={{ height: hp("3%"), width: wp("8%") }}
         onValueChange={props.getWineId}
         selectedValue={props.selectedId}
       >

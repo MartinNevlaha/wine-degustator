@@ -1,5 +1,8 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
+import {
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const OwnText = (props) => (
   <Text style={{ ...styles.text, ...props.style }}>{props.children}</Text>
@@ -8,9 +11,9 @@ const OwnText = (props) => (
 const styles = StyleSheet.create({
   text: {
     fontFamily: "open-sans",
-    fontSize: 14,
+    fontSize: hp("1.8%"),
     color: "white",
-    paddingBottom: 5
+    paddingBottom: hp("1%")
   },
 });
 

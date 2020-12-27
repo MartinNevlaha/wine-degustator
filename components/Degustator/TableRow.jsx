@@ -1,5 +1,9 @@
 import React from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 import OwnText from "../UI/Text";
 
@@ -33,7 +37,8 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     justifyContent: 'space-evenly',
-    padding: 5,
+    paddingHorizontal: wp("0.8%"),
+    paddingVertical: hp("0.8%"),
     borderBottomColor: 'white',
     borderBottomWidth: 1
     },

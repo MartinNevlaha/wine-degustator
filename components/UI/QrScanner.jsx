@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Alert, ActivityIndicator } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-
-import OwnText from "../../components/UI/Text";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const QrScanner = (props) => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -56,12 +58,14 @@ const QrScanner = (props) => {
 
 const styles = StyleSheet.create({
   qrScanner: {
-    width: "45%",
+    width: "60%",
     height: "55%",
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
-    margin: 10,
+    paddingHorizontal: wp("1%"),
+    paddingVertical: hp("1%"),
+    marginVertical: wp("1%"),
+    marginHorizontal: hp("1%"),
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "white",

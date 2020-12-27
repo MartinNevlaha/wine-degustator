@@ -11,6 +11,10 @@ import { LinearGradient } from "expo-linear-gradient";
 import { connect } from "react-redux";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { AntDesign, Entypo } from "@expo/vector-icons";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 import Colors from "../constants/Colors";
 import OwnText from "../components/UI/Text";
@@ -79,8 +83,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   loginContainer: {
-    width: "60%",
-    height: 570,
+    width: wp("60%"),
+    height: hp("75%"),
     backgroundColor: Colors.secondary,
     borderWidth: 1,
     borderColor: "white",
@@ -91,8 +95,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "open-sans-bold",
-    fontSize: 20,
-    margin: 10,
+    fontSize: hp("3%"),
+    marginVertical: wp("1%"),
+    marginHorizontal: hp("1%"),
   },
   imgContainer: {
     flexDirection: "row",
@@ -100,8 +105,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   img: {
-    width: 50,
-    height: 90,
+    width: wp("5%"),
+    height: hp("13%"),
   },
   warnInfo: {
     color: "red",

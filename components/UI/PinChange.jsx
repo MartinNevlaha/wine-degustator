@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { View, TextInput, Button, StyleSheet } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useSelector, useDispatch } from "react-redux";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 import OwnText from "./Text";
 import Colors from "../../constants/Colors";
@@ -117,8 +121,8 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "100%",
-    paddingHorizontal: 2,
-    paddingVertical: 5,
+    paddingHorizontal: wp("1%"),
+    paddingVertical: hp("0.8%"),
     borderBottomColor: "#ccc",
     borderBottomWidth: 1,
     color: "white",
@@ -126,7 +130,8 @@ const styles = StyleSheet.create({
   changePinContainer: {
     width: "50%",
     backgroundColor: Colors.primary,
-    padding: 20,
+    paddingHorizontal: wp("2%"),
+    paddingVertical: hp("2%"),
     borderWidth: 1,
     borderColor: "white",
     borderRadius: 10,
@@ -135,21 +140,22 @@ const styles = StyleSheet.create({
   btnContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    margin: 20,
+    marginVertical: wp("2%"),
+    marginHorizontal: hp("2%"),
   },
   btn: {
-    width: 70,
+    width: wp("10%"),
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "white",
-    borderRadius: 10,
     overflow: "hidden",
   },
   warnInfo: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    paddingHorizontal: wp("1%"),
+    paddingVertical: hp("1%"),
   },
 });
 

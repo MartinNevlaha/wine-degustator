@@ -2,6 +2,10 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { connect } from "react-redux";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 import OwnButton from "../UI/Button";
 import Colors from "../../constants/Colors";
@@ -131,8 +135,8 @@ const DegTable = (props) => {
 
 const styles = StyleSheet.create({
   degTableContainer: {
-    width: "72%",
-    height: "100%",
+    width: wp("72%"),
+    height: hp("85%"),
     backgroundColor: Colors.primary,
     borderColor: "white",
     borderWidth: 1,
@@ -142,19 +146,16 @@ const styles = StyleSheet.create({
   tableHeads: {
     flexDirection: "row",
   },
-  headers: {
-    fontFamily: "open-sans-bold",
-    fontSize: 14,
-    marginHorizontal: 20,
-  },
   emoji: {
-    padding: 5,
-    marginHorizontal: 50,
+    paddingHorizontal: wp("0.5%"),
+    paddingVertical: hp("0.5%"),
+    marginHorizontal: wp("3.45%"),
   },
   title: {
     fontFamily: "open-sans-bold",
-    fontSize: 24,
+    fontSize: hp("3.3%"),
     textAlign: "center",
+    marginTop: hp("1%")
   },
   preHeader: {
     flexDirection: "row",

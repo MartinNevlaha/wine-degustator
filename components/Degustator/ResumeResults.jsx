@@ -6,6 +6,10 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 import Colors from "../../constants/Colors";
 import OwnText from "../UI/Text";
@@ -176,7 +180,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: "center",
     fontFamily: "open-sans-bold",
-    fontSize: 20,
+    fontSize: hp("3%"),
   },
   imgContainer: {
     flexDirection: "row",
@@ -184,18 +188,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   img: {
-    width: 50,
-    height: 90,
+    width: wp("6%"),
+    height: hp("15%"),
   },
   btnContainer: {
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    margin: 20,
+    marginHorizontal: wp("2%"),
+    marginVertical: hp("2%"),
   },
   btn: {
-    width: 120,
+    width: wp("15%"),
     borderRadius: 10,
     elevation: 10,
     borderColor: "white",
@@ -203,13 +208,14 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   eliminated: {
-    paddingVertical: 20,
+    paddingVertical: wp("2%"),
     justifyContent: "center",
     alignItems: "center",
   },
   table: {
     width: "80%",
-    margin: 10,
+    marginHorizontal: wp("2%"),
+    marginVertical: hp("2%"),
     borderColor: "white",
     borderWidth: 1,
     borderRadius: 10,
@@ -217,7 +223,7 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   values: {
-    marginHorizontal: 50,
+    marginHorizontal: hp("8%"),
     textAlign: "center",
   },
   finalTable: {

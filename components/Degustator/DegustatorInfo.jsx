@@ -1,5 +1,9 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 import OwnText from "../../components/UI/Text";
 import Colors from "../../constants/Colors";
@@ -28,18 +32,20 @@ const styles = StyleSheet.create({
     elevation: 10,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20
+    marginBottom: hp("3%")
   },
   title: {
     fontFamily: "open-sans-bold",
-    fontSize: 20,
-    padding: 10
+    fontSize: hp("3%"),
+    paddingHorizontal: wp("1%"),
+    paddingVertical: hp("1%"),
   },
   infoContainer: {
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
-    padding: 10
+    paddingHorizontal: wp("1%"),
+    paddingVertical: hp("1%"),
   },
 });
 

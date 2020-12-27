@@ -11,6 +11,10 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { AntDesign } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 import Colors from "../constants/Colors";
 import QrScanner from "../components/UI/QrScanner";
@@ -209,25 +213,28 @@ const styles = StyleSheet.create({
   },
   btn: {
     width: "90%",
-    margin: 15,
+    marginVertical: wp("1.5%"),
+    marginHorizontal: hp("1.5%"),
     overflow: "hidden",
     borderRadius: 10,
   },
   title: {
     fontFamily: "open-sans-bold",
-    fontSize: 20,
-    margin: 10,
+    fontSize: hp("3%"),
+    marginVertical: wp("1%"),
+    marginHorizontal: hp("1%"),
   },
   settingsWrapper: {
     width: "80%",
-    margin: 10,
+    marginVertical: wp("1%"),
+    marginHorizontal: hp("1%"),
     justifyContent: "center",
     alignItems: "center",
   },
   input: {
     width: "100%",
-    paddingHorizontal: 2,
-    paddingVertical: 5,
+    paddingHorizontal: wp("1%"),
+    paddingVertical: hp("0.8%"),
     borderBottomColor: "#ccc",
     borderBottomWidth: 1,
     color: "white",
@@ -235,7 +242,8 @@ const styles = StyleSheet.create({
   qrScan: {
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    paddingHorizontal: wp("1%"),
+    paddingVertical: hp("1%"),
   },
   qrWrapper: {
     width: "100%",

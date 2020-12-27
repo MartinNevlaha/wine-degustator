@@ -1,5 +1,9 @@
 import React from "react";
 import { View, FlatList, StyleSheet } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 import OwnText from "../UI/Text";
 import Colors from "../../constants/Colors";
@@ -67,13 +71,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "open-sans-bold",
-    fontSize: 20,
-    padding: 10,
+    fontSize: hp("3%"),
+    paddingHorizontal: wp("1%"),
+    paddingVertical: hp("1%"),
   },
   tableContainer: {
     width: "90%",
     height: "85%",
-    marginTop: 10,
+    marginTop: hp("1.5%"),
     overflow: "hidden",
   },
   row: {
@@ -83,7 +88,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     borderColor: "white",
-    padding: 5,
+    paddingHorizontal: wp("0.5%"),
+    paddingVertical: hp("0.5%"),
     backgroundColor: Colors.secondary,
   },
   cell: {
@@ -91,7 +97,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",
-    margin: 5,
+    marginHorizontal: wp("0.5%"),
+    marginVertical: hp("0.5%"),
   },
   scrollContainer: {
     width: "100%",

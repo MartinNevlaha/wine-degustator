@@ -3,6 +3,10 @@ import { View, StyleSheet, Button, KeyboardAvoidingView, Vibration } from "react
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import SmoothPinCodeInput from "react-native-smooth-pincode-input";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 import Colors from "../../constants/Colors";
 import OnwText from "./Text";
@@ -92,14 +96,17 @@ const PINCode = (props) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.transparentGrey,
-    padding: 20,
+    paddingHorizontal: wp("2%"),
+    paddingVertical: hp("2%"),
     alignItems: "center",
+    borderRadius: 10
   },
   pinContainer: {
     flexDirection: "row",
   },
   pinNumber: {
-    margin: 10,
+    marginVertical: wp("1%"),
+    marginHorizontal: hp("1%"),
     borderBottomColor: "white",
     borderBottomWidth: 1,
   },
@@ -107,8 +114,9 @@ const styles = StyleSheet.create({
     fontFamily: "open-sans-bold",
   },
   btn: {
-    width: 70,
-    margin: 20,
+    width: wp("20%"),
+    marginVertical: wp("2%"),
+    marginHorizontal: hp("2%"),
     borderRadius: 10,
     overflow: "hidden",
   },

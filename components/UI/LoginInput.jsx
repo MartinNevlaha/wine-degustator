@@ -1,6 +1,10 @@
 import React, { useState, createRef } from "react";
 import { View, TextInput, Button, StyleSheet } from "react-native";
 import { Feather, AntDesign } from "@expo/vector-icons";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 import OwnText from "../../components/UI/Text";
 import Colors from "../../constants/Colors";
@@ -136,25 +140,27 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "100%",
-    paddingHorizontal: 2,
-    paddingVertical: 5,
+    paddingHorizontal: wp("2%"),
+    paddingVertical: hp("0.8%"),
     borderBottomColor: "#ccc",
     borderBottomWidth: 1,
     color: "white",
   },
   inputPass: {
     width: "90%",
-    paddingHorizontal: 2,
-    paddingVertical: 5,
+    paddingHorizontal: wp("2%"),
+    paddingVertical: hp("0.8%"),
     borderBottomColor: "#ccc",
     borderBottomWidth: 1,
     color: "white",
   },
   inputWrapper: {
-    margin: 10,
+    marginVertical: wp("1%"),
+    marginHorizontal: hp("1%"),
   },
   btn: {
-    margin: 15,
+    marginVertical: wp("1.5%"),
+    marginHorizontal: hp("1.5%"),
     overflow: "hidden",
     borderRadius: 10,
   },
@@ -164,7 +170,8 @@ const styles = StyleSheet.create({
   qrLoging: {
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    paddingHorizontal: wp("1%"),
+    paddingVertical: hp("1%"),
   },
   qrWrapper: {
     width: "100%",
