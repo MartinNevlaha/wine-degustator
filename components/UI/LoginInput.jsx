@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, createRef } from "react";
 import { View, TextInput, Button, StyleSheet } from "react-native";
 import { Feather, AntDesign } from "@expo/vector-icons";
 
@@ -20,6 +20,8 @@ const LoginInput = (props) => {
       isValid: false,
     },
   });
+
+  const passInput = createRef();
 
   const visibilityTogleHandler = () => {
     setIsPassVisible((prevState) => !prevState);
@@ -51,6 +53,10 @@ const LoginInput = (props) => {
     props.submit(loginData);
   };
 
+  const onFocusHandler = () => {
+    passInput.current.focus();
+  }
+
   return (
     <View style={styles.loginContainer}>
       {!isQrScanerShow ? (
@@ -61,15 +67,20 @@ const LoginInput = (props) => {
               style={styles.input}
               value={loginValues.name.value}
               onChangeText={(value) => inputHandler(value, "name")}
+              returnKeyType="next"
+              onSubmitEditing={onFocusHandler}
             />
           </View>
           <View style={styles.inputWrapper}>
             <OwnText style={styles.label}>Prihlasovacie heslo</OwnText>
             <View style={styles.passContainer}>
               <TextInput
+                ref={passInput}
                 style={styles.inputPass}
                 secureTextEntry={isPassVisible}
                 onChangeText={(value) => inputHandler(value, "password")}
+                returnKeyType="done"
+                onSubmitEditing={submitHandler}
               />
               <Feather
                 name={isPassVisible ? "eye" : "eye-off"}

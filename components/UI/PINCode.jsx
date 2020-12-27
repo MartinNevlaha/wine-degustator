@@ -57,6 +57,7 @@ const PINCode = (props) => {
       <OnwText style={styles.title}>Zadaj PIN kód aplikácie</OnwText>
       <View style={styles.pinContainer}></View>
       <SmoothPinCodeInput
+        autoFocus={true}
         ref={pinInput}
         password
         mask="﹡"
