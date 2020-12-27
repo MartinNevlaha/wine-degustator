@@ -68,17 +68,6 @@ const DegTable = (props) => {
     btnValues.generalImpresion,
     "generalImpresion"
   );
-  const emojiIcons = ["smile-wink", "smile", "meh", "frown", "frown-open"];
-
-  const emoji = emojiIcons.map((emj, i) => (
-    <FontAwesome5
-      key={i}
-      name={emj}
-      size={20}
-      color="white"
-      style={styles.emoji}
-    />
-  ));
 
   return (
     <View style={styles.degTableContainer}>
@@ -98,9 +87,6 @@ const DegTable = (props) => {
         </View>
         <WineInfo />
       </View>
-      <TableFormater headTitle="">
-        <TableElement title="">{emoji}</TableElement>
-      </TableFormater>
       <TableFormater headTitle="Vzhľad" type="dark">
         <TableElement title="Čirosť">{btnsLookClarity}</TableElement>
         <TableElement title="Vzhľad mimo čírosť">
