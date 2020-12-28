@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TextInput, Button, StyleSheet } from "react-native";
+import { View, TextInput, Button, StyleSheet, TouchableOpacity } from "react-native";
 import CheckBox from "@react-native-community/checkbox";
 import { connect } from "react-redux";
 import {
@@ -60,12 +60,13 @@ const ContinuosResults = (props) => {
         )}
       </OwnText>
       <View style={styles.btn}>
-        <Button
+        <TouchableOpacity
           disabled={!(props.isWineIdValid && !props.wineInfoError) || !props.isRatingValid}
-          title="Odoslať"
           color={Colors.btnColor}
           onPress={props.toggleModal}
-        />
+        >
+          <OwnText>Odoslať</OwnText>
+        </TouchableOpacity>
       </View>
     </View>
   );

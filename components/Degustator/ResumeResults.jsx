@@ -188,8 +188,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   img: {
-    width: wp("6%"),
-    height: hp("15%"),
+    width: 30,
+    height: 50,
   },
   btnContainer: {
     width: "100%",

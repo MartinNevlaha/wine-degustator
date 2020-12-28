@@ -1,5 +1,5 @@
 import React, { useState, createRef } from "react";
-import { View, TextInput, Button, StyleSheet } from "react-native";
+import { View, TextInput, Button, StyleSheet, ScrollView } from "react-native";
 import { Feather, AntDesign } from "@expo/vector-icons";
 import {
   widthPercentageToDP as wp,
@@ -7,6 +7,7 @@ import {
 } from "react-native-responsive-screen";
 
 import OwnText from "../../components/UI/Text";
+import FunctionBtn from "../UI/FunctionBtn";
 import Colors from "../../constants/Colors";
 import QrScanner from "./QrScanner";
 import { isInputNameValid, isInputPassValid } from "../../utils/validation";
@@ -59,10 +60,10 @@ const LoginInput = (props) => {
 
   const onFocusHandler = () => {
     passInput.current.focus();
-  }
+  };
 
   return (
-    <View style={styles.loginContainer}>
+    <ScrollView style={styles.loginContainer}>
       {!isQrScanerShow ? (
         <React.Fragment>
           <View style={styles.inputWrapper}>
@@ -95,15 +96,19 @@ const LoginInput = (props) => {
               />
             </View>
           </View>
-          <View style={styles.btn}>
-            <Button
-              title="Prihlásiť"
-              color={Colors.btnColor}
+          <View style={styles.btnWrapper}>
+            <FunctionBtn
               disabled={
-                !(loginValues.name.isValid && loginValues.password.isValid && props.isBaseUrlSet) 
+                !(
+                  loginValues.name.isValid &&
+                  loginValues.password.isValid &&
+                  props.isBaseUrlSet
+                )
               }
-              onPress={submitHandler}
-            />
+              clicked={submitHandler}
+            >
+              Prihlásiť
+            </FunctionBtn>
           </View>
           <View style={styles.qrLoging}>
             <OwnText>Prihlásenie cez QR kód</OwnText>
@@ -118,16 +123,14 @@ const LoginInput = (props) => {
       ) : (
         <View style={styles.qrWrapper}>
           <QrScanner qrScanSubmit={props.submit} scanType="object" />
-          <View style={styles.btn}>
-            <Button
-              title="Klasické prihlásenie"
-              color={Colors.btnColor}
-              onPress={() => setIsQrScannerShow(false)}
-            />
+          <View style={styles.btnWrapper}>
+            <FunctionBtn clicked={() => setIsQrScannerShow(false)}>
+              Späť
+            </FunctionBtn>
           </View>
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -158,12 +161,6 @@ const styles = StyleSheet.create({
     marginVertical: wp("1%"),
     marginHorizontal: hp("1%"),
   },
-  btn: {
-    marginVertical: wp("1.5%"),
-    marginHorizontal: hp("1.5%"),
-    overflow: "hidden",
-    borderRadius: 10,
-  },
   passContainer: {
     flexDirection: "row",
   },
@@ -174,10 +171,13 @@ const styles = StyleSheet.create({
     paddingVertical: hp("1%"),
   },
   qrWrapper: {
-    width: "100%",
-    height: "100%",
+    width: wp("50%"),
+    height: hp("50%"),
     alignItems: "center",
   },
+  btnWrapper: {
+    alignItems: 'center'
+  }
 });
 
 export default LoginInput;

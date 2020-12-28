@@ -105,8 +105,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   img: {
-    width: wp("5%"),
-    height: hp("13%"),
+    width: wp("4%"),
+    height: hp("10%"),
   },
   warnInfo: {
     color: "red",

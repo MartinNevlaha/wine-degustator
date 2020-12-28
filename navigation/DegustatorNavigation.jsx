@@ -16,7 +16,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   Foundation,
   MaterialCommunityIcons,
-  AntDesign,
 } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useDispatch } from "react-redux";
