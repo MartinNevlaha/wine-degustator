@@ -1,5 +1,11 @@
 import React, { useState, useEffect, createRef } from "react";
-import { View, StyleSheet, Button, KeyboardAvoidingView, Vibration } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Button,
+  KeyboardAvoidingView,
+  Vibration,
+} from "react-native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import SmoothPinCodeInput from "react-native-smooth-pincode-input";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +16,7 @@ import {
 
 import Colors from "../../constants/Colors";
 import OnwText from "./Text";
+import FunctionBtn from "./FunctionBtn";
 import { getPinCode } from "../../utils/pinCode";
 import * as action from "../../store/actions/index";
 
@@ -81,13 +88,10 @@ const PINCode = (props) => {
           color: "white",
         }}
       />
-      <View style={styles.btn}>
-        <Button
-          title="Ok"
-          color={Colors.btnColor}
-          disabled={btnDisabled}
-          onPress={submitHandler}
-        />
+      <View style={styles.btnWrapper}>
+        <FunctionBtn disabled={btnDisabled} clicked={submitHandler}>
+          Ok
+        </FunctionBtn>
       </View>
     </KeyboardAvoidingView>
   );
@@ -99,7 +103,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp("2%"),
     paddingVertical: hp("2%"),
     alignItems: "center",
-    borderRadius: 10
+    borderRadius: 10,
   },
   pinContainer: {
     flexDirection: "row",
@@ -113,13 +117,10 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "open-sans-bold",
   },
-  btn: {
-    width: wp("20%"),
-    marginVertical: wp("2%"),
-    marginHorizontal: hp("2%"),
-    borderRadius: 10,
-    overflow: "hidden",
-  },
+  btnWrapper: {
+    alignItems: 'center',
+    marginVertical: hp("2%")
+  }
 });
 
 export default PINCode;

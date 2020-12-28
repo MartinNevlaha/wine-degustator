@@ -11,7 +11,7 @@ const OwnText = (props) => (
 const styles = StyleSheet.create({
   text: {
     fontFamily: "open-sans",
-    fontSize: hp("1.8%"),
+    fontSize: hp("1.9%"),
     color: "white",
     paddingBottom: hp("1%")
   },

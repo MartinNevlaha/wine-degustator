@@ -8,6 +8,7 @@ import {
 } from "react-native-responsive-screen";
 
 import OwnText from "./Text";
+import FunctionBtn from "../UI/FunctionBtn";
 import Colors from "../../constants/Colors";
 import * as action from "../../store/actions/index";
 
@@ -94,21 +95,13 @@ const PinChange = (props) => {
         />
       </View>
       <View style={styles.btnContainer}>
-        <View style={styles.btn}>
-          <Button
-            title="Späť"
-            color={Colors.btnColor}
-            onPress={props.togleModal}
-          />
-        </View>
-        <View style={styles.btn}>
-          <Button
-            title="Ok"
-            color={Colors.btnColor}
-            disabled={!(oldPinValid.isValid && newPinValid.isTouch)}
-            onPress={setNewPinHandler}
-          />
-        </View>
+        <FunctionBtn clicked={props.togleModal}>Späť</FunctionBtn>
+        <FunctionBtn
+          disabled={!(oldPinValid.isValid && newPinValid.isTouch)}
+          clicked={setNewPinHandler}
+        >
+          Ok
+        </FunctionBtn>
       </View>
     </View>
   );
@@ -142,13 +135,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     marginVertical: wp("2%"),
     marginHorizontal: hp("2%"),
-  },
-  btn: {
-    width: wp("10%"),
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "white",
-    overflow: "hidden",
   },
   warnInfo: {
     flexDirection: "row",

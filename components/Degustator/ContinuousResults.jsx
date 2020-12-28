@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TextInput, Button, StyleSheet, TouchableOpacity } from "react-native";
+import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import CheckBox from "@react-native-community/checkbox";
 import { connect } from "react-redux";
 import {
@@ -9,6 +9,7 @@ import {
 
 import Colors from "../../constants/Colors";
 import OwnText from "../UI/Text";
+import FunctionBtn from "../UI/FunctionBtn";
 
 const ContinuosResults = (props) => {
   return (
@@ -59,14 +60,16 @@ const ContinuosResults = (props) => {
           <OwnText style={styles.warnText}>Nekompletné</OwnText>
         )}
       </OwnText>
-      <View style={styles.btn}>
-        <TouchableOpacity
-          disabled={!(props.isWineIdValid && !props.wineInfoError) || !props.isRatingValid}
-          color={Colors.btnColor}
-          onPress={props.toggleModal}
+      <View style={styles.btnWrapper}>
+        <FunctionBtn
+          disabled={
+            !(props.isWineIdValid && !props.wineInfoError) ||
+            !props.isRatingValid
+          }
+          clicked={props.toggleModal}
         >
-          <OwnText>Odoslať</OwnText>
-        </TouchableOpacity>
+          Odoslať
+        </FunctionBtn>
       </View>
     </View>
   );
@@ -110,12 +113,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  btn: {
-    borderColor: "white",
-    borderWidth: 1,
-    borderRadius: 10,
-    overflow: "hidden",
+  btnWrapper: {
     marginVertical: hp("2%"),
+    alignItems: 'center'
   },
   warnText: {
     fontFamily: "open-sans-bold",
@@ -124,9 +124,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  wineInfoError: state.wineInfo.wineInfo.error
+  wineInfoError: state.wineInfo.wineInfo.error,
 });
-
-
 
 export default connect(mapStateToProps, null)(ContinuosResults);

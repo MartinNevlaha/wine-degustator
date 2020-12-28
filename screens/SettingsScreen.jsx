@@ -5,8 +5,9 @@ import {
   KeyboardAvoidingView,
   TextInput,
   Platform,
-  Button,
+  ScrollView,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { AntDesign } from "@expo/vector-icons";
@@ -19,12 +20,13 @@ import {
 import Colors from "../constants/Colors";
 import QrScanner from "../components/UI/QrScanner";
 import OwnText from "../components/UI/Text";
+import FunctionBtn from "../components/UI/FunctionBtn";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../store/actions/index";
 import { isUrlValid } from "../utils/validation";
 import PINCode from "../components/UI/PINCode";
 import OwnModal from "../components/HOC/Modal";
-import PinChange from '../components/UI/PinChange';
+import PinChange from "../components/UI/PinChange";
 
 const SettingsScreen = (props) => {
   const [isQrScanerShow, setIsQrScannerShow] = useState(false);
@@ -93,88 +95,87 @@ const SettingsScreen = (props) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "android" ? "" : "position"}
-      enabled
-      style={styles.container}
-      keyboardVerticalOffset={tabHeight + 10}
-    >
-      <LinearGradient
-        colors={["#611C2A", "white"]}
-        style={{ flex: 1 }}
-        start={{ x: 1, y: 0 }}
-        style={styles.gradContainer}
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "android" ? "" : "position"}
+        enabled
+        style={styles.container}
+        keyboardVerticalOffset={tabHeight + 10}
       >
-        {isPinValid ? (
-          <View style={styles.settingContainer}>
-            <OwnModal isVisible={isModalShow}>
-              <PinChange togleModal={togleModal}/>
-            </OwnModal>
-            <OwnText style={styles.title}>Nastavenia</OwnText>
-            <View style={styles.settingsWrapper}>
-              {!isQrScanerShow ? (
-                <React.Fragment>
-                  <View style={styles.inputContainer}>
-                    <OwnText>URL adresa servera</OwnText>
-                    <TextInput
-                      style={styles.input}
-                      value={url.url}
-                      onChangeText={(value) => getInputHandler(value)}
-                      placeholder={baseUrl}
-                      placeholderTextColor="gray"
-                    />
-                  </View>
-                  <View style={styles.btn}>
-                    <Button
-                      title="Ulož"
-                      color={Colors.btnColor}
-                      disabled={!url.isValid}
-                      onPress={onPressBtnSaveHandler}
-                    />
-                  </View>
-                  <View style={styles.btn}>
-                    <Button
-                      title="Resetuj nastavenia url"
-                      color={Colors.btnColor}
-                      onPress={resetSettingHandler}
-                    />
-                  </View>
-                  <View style={styles.qrScan}>
-                    <OwnText>Načítaj nastavenia cez QR kód</OwnText>
-                    <AntDesign
-                      name="qrcode"
-                      size={80}
-                      color="white"
-                      onPress={() => setIsQrScannerShow(true)}
-                    />
-                  </View>
-                  <View style={styles.btn}>
-                    <Button
-                      title="Zmeň PIN aplikácie"
-                      color={Colors.btnColor}
-                      onPress={togleModal}
-                    />
-                  </View>
-                </React.Fragment>
-              ) : (
-                <View style={styles.qrWrapper}>
-                  <QrScanner qrScanSubmit={saveSettingsHandler} />
-                  <View style={styles.btn}>
-                    <Button
-                      title="Naspäť"
-                      color={Colors.btnColor}
-                      onPress={() => setIsQrScannerShow(false)}
-                    />
-                  </View>
+        <LinearGradient
+          colors={["#611C2A", "white"]}
+          style={{ flex: 1 }}
+          start={{ x: 1, y: 0 }}
+          style={styles.gradContainer}
+        >
+          {isPinValid ? (
+            <View style={styles.settingContainer}>
+              <OwnModal isVisible={isModalShow}>
+                <PinChange togleModal={togleModal} />
+              </OwnModal>
+              <OwnText style={styles.title}>Nastavenia</OwnText>
+              <ScrollView
+                style={styles.scroll}
+                contentContainerStyle={{ alignItems: "center" }}
+              >
+                <View style={styles.settingsWrapper}>
+                  {!isQrScanerShow ? (
+                    <React.Fragment>
+                      <View style={styles.inputContainer}>
+                        <OwnText>URL adresa servera</OwnText>
+                        <TextInput
+                          style={styles.input}
+                          value={url.url}
+                          onChangeText={(value) => getInputHandler(value)}
+                          placeholder={baseUrl}
+                          placeholderTextColor="gray"
+                        />
+                      </View>
+                      <View style={styles.btnWrapper}>
+                        <FunctionBtn
+                          disabled={!url.isValid}
+                          clicked={onPressBtnSaveHandler}
+                        >
+                          Ulož
+                        </FunctionBtn>
+                      </View>
+                      <View style={styles.btnWrapper}>
+                        <FunctionBtn clicked={resetSettingHandler}>
+                          Resetuj url
+                        </FunctionBtn>
+                      </View>
+                      <View style={styles.qrScan}>
+                        <OwnText>Načítaj nastavenia cez QR kód</OwnText>
+                        <AntDesign
+                          name="qrcode"
+                          size={80}
+                          color="white"
+                          onPress={() => setIsQrScannerShow(true)}
+                        />
+                      </View>
+                      <View style={styles.btnWrapper}>
+                        <FunctionBtn clicked={togleModal}>Zmeň PIN</FunctionBtn>
+                      </View>
+                    </React.Fragment>
+                  ) : (
+                    <View style={styles.qrWrapper}>
+                      <QrScanner qrScanSubmit={saveSettingsHandler} />
+                      <View style={styles.btn}>
+                        <FunctionBtn clicked={() => setIsQrScannerShow(false)}>
+                          Späť
+                        </FunctionBtn>
+                      </View>
+                    </View>
+                  )}
                 </View>
-              )}
+              </ScrollView>
             </View>
-          </View>
-        ) : (
-          <PINCode navigation={props.navigation} />
-        )}
-      </LinearGradient>
-    </KeyboardAvoidingView>
+          ) : (
+            <PINCode navigation={props.navigation} />
+          )}
+        </LinearGradient>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -211,12 +212,9 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "flex-start",
   },
-  btn: {
-    width: "90%",
-    marginVertical: wp("1.5%"),
-    marginHorizontal: hp("1.5%"),
-    overflow: "hidden",
-    borderRadius: 10,
+  btnWrapper: {
+    marginVertical: wp("1%"),
+    marginHorizontal: hp("1%"),
   },
   title: {
     fontFamily: "open-sans-bold",
@@ -251,8 +249,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   changePinContainer: {
-    width: "50%"
-  }
+    width: "50%",
+  },
+  scroll: {
+    width: "100%",
+  },
 });
 
 export default SettingsScreen;

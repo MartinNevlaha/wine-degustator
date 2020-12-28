@@ -13,6 +13,7 @@ import {
 
 import Colors from "../../constants/Colors";
 import OwnText from "../UI/Text";
+import FunctionButton from "../UI/FunctionBtn";
 import TableFormater from "../HOC/TableFormater";
 import TableElement from "../Degustator/TableElement";
 
@@ -126,21 +127,13 @@ const ResumeResults = (props) => {
         )}
         <View style={styles.btnContainer}>
           {props.type !== "degResults" && (
-            <View style={styles.btn}>
-              <Button
-                title="Uprav"
-                color={Colors.btnColor}
-                onPress={props.cancel}
-              />
-            </View>
+              <FunctionButton clicked={props.cancel}>
+                Uprav
+              </FunctionButton>
           )}
-          <View style={styles.btn}>
-            <Button
-              title={props.type === "degResults" ? "Ok" : "Odoslať"}
-              color={Colors.btnColor}
-              onPress={props.submit}
-            />
-          </View>
+            <FunctionButton clicked={props.submit}>
+              {props.type === "degResults" ? "Ok" : "Odoslať"}
+            </FunctionButton>
         </View>
       </React.Fragment>
     );

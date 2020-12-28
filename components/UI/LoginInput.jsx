@@ -8,7 +8,6 @@ import {
 
 import OwnText from "../../components/UI/Text";
 import FunctionBtn from "../UI/FunctionBtn";
-import Colors from "../../constants/Colors";
 import QrScanner from "./QrScanner";
 import { isInputNameValid, isInputPassValid } from "../../utils/validation";
 
@@ -114,7 +113,7 @@ const LoginInput = (props) => {
             <OwnText>Prihlásenie cez QR kód</OwnText>
             <AntDesign
               name="qrcode"
-              size={80}
+              size={hp("15%")}
               color="white"
               onPress={() => setIsQrScannerShow(true)}
             />
@@ -143,7 +142,6 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "100%",
-    paddingHorizontal: wp("2%"),
     paddingVertical: hp("0.8%"),
     borderBottomColor: "#ccc",
     borderBottomWidth: 1,
@@ -151,7 +149,6 @@ const styles = StyleSheet.create({
   },
   inputPass: {
     width: "90%",
-    paddingHorizontal: wp("2%"),
     paddingVertical: hp("0.8%"),
     borderBottomColor: "#ccc",
     borderBottomWidth: 1,
