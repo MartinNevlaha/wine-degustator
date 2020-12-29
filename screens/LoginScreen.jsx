@@ -7,7 +7,6 @@ import {
   Image,
   Platform,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { connect } from "react-redux";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
@@ -16,6 +15,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import Colors from "../constants/Colors";
 import OwnText from "../components/UI/Text";
@@ -30,7 +30,7 @@ const LoginScreen = (props) => {
         behavior={Platform.OS === "android" ? "" : "position"}
         enabled
         style={styles.container}
-        keyboardVerticalOffset={tabBarHeight + 10}
+        keyboardVerticalOffset={tabBarHeight - 10}
       >
         <LinearGradient
           colors={["#611C2A", "white"]}
@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   loginContainer: {
-    width: wp("60%"),
-    height: hp("75%"),
+    width: "60%",
+    height: "70%",
     backgroundColor: Colors.secondary,
     borderWidth: 1,
     borderColor: "white",
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   img: {
     width: 30,
-    height: 50,
+    height: 0,
   },
   warnInfo: {
     color: "red",

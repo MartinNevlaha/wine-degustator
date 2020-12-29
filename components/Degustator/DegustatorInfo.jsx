@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
     elevation: 10,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: hp("3%")
+    marginBottom: hp("3%"),
+    overflow: "hidden"
   },
   title: {
     fontFamily: "open-sans-bold",

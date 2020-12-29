@@ -5,6 +5,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import AppNavigation from "./navigation/AppNavigation";
 
@@ -19,7 +20,7 @@ const rootReducer = combineReducers({
   wineInfo: wineInfoReducer,
   degResults: degResultsReducer,
   auth: authReducer,
-  settings: settingsReducer
+  settings: settingsReducer,
 });
 
 const store = createStore(
@@ -50,7 +51,9 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <AppNavigation />
+      <SafeAreaProvider>
+        <AppNavigation />
+      </SafeAreaProvider>
     </Provider>
   );
 }

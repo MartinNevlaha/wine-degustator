@@ -3,10 +3,10 @@ import {
   ImageBackground,
   Image,
   StyleSheet,
-  SafeAreaView,
   View,
   TouchableOpacity,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
   createDrawerNavigator,
@@ -124,13 +124,12 @@ export const WineNavigation = () => {
     <WineDegustatorNavigator.Navigator
       drawerContent={(props) => {
         return (
-          <View style={{ flex: 1, paddingTop: 20 }}>
+          <SafeAreaView style={{flex: 1}}>
             <LinearGradient
               colors={["#611C2A", "white"]}
               style={{ flex: 1 }}
               start={{ x: 0.7, y: 0 }}
             >
-              <SafeAreaView forceInset={{ top: "always", horizontal: "never" }}>
                 <View style={{ width: "100%", alignItems: "center" }}>
                   <View style={styles.logo}>
                     <OwnText
@@ -172,9 +171,8 @@ export const WineNavigation = () => {
                     <OwnText>Odhlásiť</OwnText>
                   </TouchableOpacity>
                 </View>
-              </SafeAreaView>
             </LinearGradient>
-          </View>
+          </SafeAreaView>
         );
       }}
       drawerContentOptions={{

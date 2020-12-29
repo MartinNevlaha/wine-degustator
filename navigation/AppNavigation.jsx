@@ -12,13 +12,11 @@ const AppNavigation = (props) => {
   const didTryAutoLogin = useSelector((state) => state.auth.didTryAutoLogin);
 
   return (
-    <SafeAreaProvider>
       <NavigationContainer>
         {isAuth && isDegValid && <WineNavigation />}
         {!isAuth && didTryAutoLogin && <StartUpTabNavigator />}
         {!isAuth && !didTryAutoLogin && <StartUpScreen />}
       </NavigationContainer>
-    </SafeAreaProvider>
   );
 };
 

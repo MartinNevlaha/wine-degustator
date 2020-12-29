@@ -1,5 +1,5 @@
 import React, { useState, createRef } from "react";
-import { View, TextInput, Button, StyleSheet, ScrollView } from "react-native";
+import { View, TextInput, StyleSheet, ScrollView } from "react-native";
 import { Feather, AntDesign } from "@expo/vector-icons";
 import {
   widthPercentageToDP as wp,

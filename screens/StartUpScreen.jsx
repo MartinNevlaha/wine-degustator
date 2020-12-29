@@ -3,6 +3,7 @@ import { View, ActivityIndicator, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import jwt_decode from "jwt-decode";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { initialisedPinCode } from "../utils/pinCode";
 import Colors from "../constants/Colors";
@@ -51,9 +52,9 @@ const StartUpScreen = (props) => {
   }, [dispatch]);
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
       <ActivityIndicator size="large" color={Colors.primary} />
-    </View>
+    </SafeAreaView>
   );
 };
 

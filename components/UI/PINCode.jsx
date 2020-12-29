@@ -34,6 +34,7 @@ const PINCode = (props) => {
       if (!Pin) {
         return;
       }
+      console.log(Pin)
       dispatch(action.getPin(Pin));
     };
     getPinAsync();
