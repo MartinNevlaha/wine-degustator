@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { LogBox } from 'react-native';
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
 import { createStore, combineReducers, applyMiddleware } from "redux";
@@ -37,6 +38,8 @@ const fetchFonts = () => {
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
+
+  LogBox.ignoreLogs(["Setting a timer"]); // fix issue with setting a timer for token
 
   if (!fontLoaded) {
     return (
