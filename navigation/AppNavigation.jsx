@@ -1,20 +1,22 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useSelector } from "react-redux";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { WineNavigation, StartUpTabNavigator } from "./DegustatorNavigation";
 import StartUpScreen from "../screens/StartUpScreen";
+import NotSupportedDeviceScreen from '../screens/NotSupportedDeviceScreen';
 
 const AppNavigation = (props) => {
   const isAuth = useSelector((state) => !!state.auth.token);
+  const isDeviceTablet = useSelector(state => state.settings.isDeviceTablet)
   const isDegValid = useSelector((state) => state.auth.isValid);
   const didTryAutoLogin = useSelector((state) => state.auth.didTryAutoLogin);
 
   return (
       <NavigationContainer>
-        {isAuth && isDegValid && <WineNavigation />}
-        {!isAuth && didTryAutoLogin && <StartUpTabNavigator />}
+        {isDeviceTablet && isAuth && isDegValid && <WineNavigation />}
+        {isDeviceTablet && !isAuth && didTryAutoLogin && <StartUpTabNavigator />}
+        {!isDeviceTablet && <NotSupportedDeviceScreen />}
         {!isAuth && !didTryAutoLogin && <StartUpScreen />}
       </NavigationContainer>
   );

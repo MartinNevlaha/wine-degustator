@@ -13,6 +13,9 @@ const StartUpScreen = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const getDevice = () => {
+      dispatch(action.getDeviceType());
+    }
     const getBaseUrl = async () => {
       const url = await AsyncStorage.getItem("baseUrl");
       if (!url) {
@@ -20,7 +23,7 @@ const StartUpScreen = (props) => {
       }
       dispatch(action.getBaseUrl(url));
     };
-    const getPin = async () => {
+    const getPin = () => {
       initialisedPinCode()
         .then(() => {})
         .catch((err) => {
@@ -52,6 +55,7 @@ const StartUpScreen = (props) => {
       );
       dispatch(action.setAuthTimeout(decodedToken.exp - decodedToken.iat));
     };
+    getDevice();
     getPin();
     getBaseUrl();
     tryAutoLogin();

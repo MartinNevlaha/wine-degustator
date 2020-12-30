@@ -7,6 +7,7 @@ const initialState = {
   pin: null,
   pinValid: false,
   error: null,
+  isDeviceTablet: false,
 };
 
 const setBaseUrl = (state, action) => {
@@ -44,6 +45,14 @@ const setNewPinFail = (state, action) => {
   return updateObj(state, { error: action.error });
 };
 
+const getDeviceTypeSuccess = (state, action) => {
+  return updateObj(state, { isDeviceTablet: action.devType === 2 ? true : false });
+};
+
+const getDeviceTypeFail = (state, action) => {
+  return updateObj(state, { isDeviceTablet: false });
+};
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_BASE_URL:
@@ -62,6 +71,10 @@ export default (state = initialState, action) => {
       return setNewPinSucces(state, action);
     case actionTypes.SET_NEW_PIN_ERROR:
       return setNewPinFail(state, action);
+    case actionTypes.GET_DEVICE_TYPE_SUCCESS:
+      return getDeviceTypeSuccess(state, action)
+    case actionTypes.GET_DEVICE_TYPE_FAIL:
+      return getDeviceTypeFail(state, action);
     default:
       return state;
   }

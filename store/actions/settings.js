@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import { setNewPinCode } from "../../utils/pinCode";
+import * as Device from "expo-device";
 
 export const setBaseUrl = (url) => {
   return {
@@ -50,9 +51,9 @@ export const setNewPinSucces = (newPin) => {
 export const setNewPinFail = (error) => {
   return {
     type: actionTypes.SET_NEW_PIN_ERROR,
-    error
-  }
-}
+    error,
+  };
+};
 
 export const setNewPin = (newPin) => {
   return (dispatch) => {
@@ -61,5 +62,28 @@ export const setNewPin = (newPin) => {
         dispatch(setNewPinSucces(res));
       })
       .catch((err) => dispatch(setNewPinFail(err)));
+  };
+};
+
+export const getDeviceTypeSucces = (devType) => {
+  return {
+    type: actionTypes.GET_DEVICE_TYPE_SUCCESS,
+    devType,
+  };
+};
+
+export const getDeviceTypeFail = () => {
+  return {
+    type: actionTypes.GET_DEVICE_TYPE_FAIL,
+  };
+};
+
+export const getDeviceType = () => {
+  return (dispatch) => {
+    Device.getDeviceTypeAsync()
+      .then((res) => {
+        dispatch(getDeviceTypeSucces(res));
+      })
+      .catch((err) => dispatch(getDeviceTypeFail()));
   };
 };

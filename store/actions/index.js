@@ -34,5 +34,6 @@ export {
   getPin,
   clearPin,
   pinValid,
-  setNewPin
+  setNewPin,
+  getDeviceType
 } from "../actions/settings";
