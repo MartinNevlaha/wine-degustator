@@ -6,6 +6,7 @@ import {
   TextInput,
   Platform,
   ScrollView,
+  Alert
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
@@ -69,7 +70,7 @@ const SettingsScreen = (props) => {
       }
       await AsyncStorage.setItem("baseUrl", url);
     } catch (error) {
-      console.log(error);
+      Alert.alert("Chyba URL", error, [{text: "Ok"}])
     }
   };
 
