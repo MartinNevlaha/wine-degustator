@@ -35,7 +35,6 @@ const ResultsScreen = (props) => {
   }, [loadDegResults]);
 
   const onClickHandler = (_id) => {
-    console.log(_id);
     props.onFetchDegResultsById(_id);
   };
 

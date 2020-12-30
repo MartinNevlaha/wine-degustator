@@ -1,7 +1,8 @@
 import { Alert } from "react-native";
 import * as SecureStore from "expo-secure-store";
+import Constants from "expo-constants";
 
-const DEFAULT_PIN = "0000";
+const DEFAULT_PIN = Constants.manifest.extra.defaultPin;
 
 export const initialisedPinCode = async () => {
   const isAvaible = await SecureStore.isAvailableAsync();

@@ -17,6 +17,7 @@ import {
 } from "react-native-responsive-screen";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import Toast from "../components/UI/Toast";
 import Colors from "../constants/Colors";
 import OwnText from "../components/UI/Text";
 import LoginInput from "../components/UI/LoginInput";
@@ -63,6 +64,7 @@ const LoginScreen = (props) => {
           ) : (
             <ActivityIndicator size="large" color="white" />
           )}
+          <Toast visible={props.error} message={props.error && props.error.message} />
         </LinearGradient>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -124,6 +126,7 @@ const mapStateToProps = (state) => {
   return {
     auth: state.auth,
     isBaseUrlSet: state.settings.isBaseUrlSet,
+    error: state.auth.error
   };
 };
 

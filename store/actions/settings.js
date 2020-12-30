@@ -47,13 +47,19 @@ export const setNewPinSucces = (newPin) => {
   };
 };
 
+export const setNewPinFail = (error) => {
+  return {
+    type: actionTypes.SET_NEW_PIN_ERROR,
+    error
+  }
+}
+
 export const setNewPin = (newPin) => {
   return (dispatch) => {
     setNewPinCode(newPin)
       .then((res) => {
-        console.log(res)
         dispatch(setNewPinSucces(res));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => dispatch(setNewPinFail(err)));
   };
 };

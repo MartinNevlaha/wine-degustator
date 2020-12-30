@@ -48,3 +48,4 @@ export const CLEAR_PIN = "CLEAR_PIN";
 export const IS_PIN_VALID = "IS_PIN_VALID";
 export const SET_NEW_PIN = "SET_NEW_PIN";
 export const SET_NEW_PIN_SUCCESS = "SET_NEW_PIN_SUCCESS";
+export const SET_NEW_PIN_ERROR = "SET_NEW_PIN_ERROR";

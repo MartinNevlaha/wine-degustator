@@ -6,6 +6,7 @@ const initialState = {
   isBaseUrlSet: false,
   pin: null,
   pinValid: false,
+  error: null,
 };
 
 const setBaseUrl = (state, action) => {
@@ -17,8 +18,8 @@ const getBaseUrl = (state, action) => {
 };
 
 const resetBaseUrl = (state, action) => {
-  return updateObj(state, { baseUrl: null, isBaseUrlSet: false })
-}
+  return updateObj(state, { baseUrl: null, isBaseUrlSet: false });
+};
 
 const getPin = (state, action) => {
   return updateObj(state, { pin: action.pin });
@@ -32,12 +33,16 @@ const clearPin = (state, action) => {
   return updateObj(state, { pin: null, pinValid: false });
 };
 
-const setNewPin = (state, action) => {
+const setNewPinSucces = (state, action) => {
   return updateObj(state, {
     pin: action.newPin,
-    pinValid: true
-  })
-}
+    pinValid: true,
+  });
+};
+
+const setNewPinFail = (state, action) => {
+  return updateObj(state, { error: action.error });
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -54,7 +59,9 @@ export default (state = initialState, action) => {
     case actionTypes.IS_PIN_VALID:
       return pinValid(state, action);
     case actionTypes.SET_NEW_PIN:
-      return setNewPin(state, action);
+      return setNewPinSucces(state, action);
+    case actionTypes.SET_NEW_PIN_ERROR:
+      return setNewPinFail(state, action);
     default:
       return state;
   }

@@ -90,6 +90,7 @@ const PinChange = (props) => {
           placeholderTextColor="gray"
           maxLength={4}
           returnKeyType="done"
+          keyboardType="number-pad"
           secureTextEntry={true}
           editable={oldPinValid.isValid}
         />

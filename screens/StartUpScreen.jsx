@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, ActivityIndicator, StyleSheet } from "react-native";
+import { ActivityIndicator, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import jwt_decode from "jwt-decode";
@@ -33,8 +33,6 @@ const StartUpScreen = (props) => {
       const { token } = transformDegData;
       const decodedToken = jwt_decode(token);
       const actualTime = Date.now() / 1000;
-
-      console.log(decodedToken.exp, actualTime);
 
       if (decodedToken.exp <= actualTime || !token) {
         dispatch(action.setDidTryAutoLogin());
