@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { ActivityIndicator, StyleSheet } from "react-native";
+import { ActivityIndicator, StyleSheet, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import jwt_decode from "jwt-decode";
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { initialisedPinCode } from "../utils/pinCode";
 import Colors from "../constants/Colors";
@@ -21,7 +21,15 @@ const StartUpScreen = (props) => {
       dispatch(action.getBaseUrl(url));
     };
     const getPin = async () => {
-      initialisedPinCode();
+      initialisedPinCode()
+        .then(() => {})
+        .catch((err) => {
+          Alert.alert(
+            "Chyba Pin kodu",
+            err,
+            [{ text: "Ok" }]
+          );
+        });
     };
     const tryAutoLogin = async () => {
       const degData = await AsyncStorage.getItem("degData");

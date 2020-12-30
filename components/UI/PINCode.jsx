@@ -2,9 +2,9 @@ import React, { useState, useEffect, createRef } from "react";
 import {
   View,
   StyleSheet,
-  Button,
   KeyboardAvoidingView,
   Vibration,
+  Alert,
 } from "react-native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import SmoothPinCodeInput from "react-native-smooth-pincode-input";
@@ -29,17 +29,17 @@ const PINCode = (props) => {
   const storedPin = useSelector((state) => state.settings.pin);
 
   useEffect(() => {
-    const getPinAsync = async () => {
-      const Pin = await getPinCode();
-      if (!Pin) {
-        return;
-      }
-      dispatch(action.getPin(Pin));
+    const getPinAsync = () => {
+      getPinCode()
+        .then((res) => dispatch(action.getPin(res)))
+        .catch((err) => {
+          Alert.alert("Chyba PIN kódu", err, [{ text: "ok" }]);
+        });
     };
     getPinAsync();
   }, [dispatch, getPinCode]);
 
-  const _checkCode = async (code) => {
+  const _checkCode = (code) => {
     if (code !== storedPin) {
       pinInput.current.shake().then(() => setPIN(""));
       Vibration.vibrate(1000);
@@ -49,7 +49,7 @@ const PINCode = (props) => {
     }
   };
 
-  const inputHandler = async (value) => {
+  const inputHandler = (value) => {
     if (value.length !== 4) {
       setBtnDisabled(true);
     }
@@ -118,9 +118,9 @@ const styles = StyleSheet.create({
     fontFamily: "open-sans-bold",
   },
   btnWrapper: {
-    alignItems: 'center',
-    marginVertical: hp("2%")
-  }
+    alignItems: "center",
+    marginVertical: hp("2%"),
+  },
 });
 
 export default PINCode;
