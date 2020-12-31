@@ -245,8 +245,8 @@ const styles = StyleSheet.create({
     paddingVertical: hp("1%"),
   },
   qrWrapper: {
-    width: "100%",
-    height: "100%",
+    width: wp("30%"),
+    height: hp("50%"),
     alignItems: "center",
   },
   changePinContainer: {
