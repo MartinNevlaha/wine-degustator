@@ -13,6 +13,7 @@ import DegustatorInfo from "../components/Degustator/DegustatorInfo";
 import ResultsTable from "../components/Degustator/ResultsTable";
 import OwnModal from "../components/HOC/Modal";
 import ResumeResults from "../components/Degustator/ResumeResults";
+import Toast from "../components/UI/Toast";
 import * as action from "../store/actions/index";
 
 const ResultsScreen = (props) => {
@@ -67,6 +68,7 @@ const ResultsScreen = (props) => {
             />
           </React.Fragment>
         )}
+        <Toast visible={props.error} message={props.error && props.error.message}/>
       </ImageBackground>
     </View>
   );

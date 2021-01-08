@@ -23,6 +23,10 @@ const resultsClearError = (state, action) => {
   return updateObj(state, { error: null });
 };
 
+const resultsSendMessageClear = (state, action) => {
+  return updateObj(state, { isSucces: false, message: null });
+};
+
 const resultsSendInit = (state, action) => {
   return updateObj(state, { sending: true });
 };
@@ -44,6 +48,7 @@ const resultsSendFailed = (state, action) => {
     loading: false,
     sending: false,
     error: action.error,
+    isSucces: false,
   });
 };
 const resultsSendCanceled = (state, action) => {
@@ -135,6 +140,8 @@ export default (state = initialState, action) => {
       return fetchWineInGroupsFailled(state, action);
     case actionTypes.RESULT_CLEAR_ERROR:
       return resultsClearError(state, action);
+    case actionTypes.CLEAR_RESULTS_SEND_MESSAGE:
+      return resultsSendMessageClear(state, action);
     case actionTypes.LOGOUT:
       return initialState;
     default:
