@@ -36,6 +36,7 @@ const ResultsTable = (props) => {
         </View>
         <View style={styles.scrollContainer}>
           <FlatList
+            style={{flex: 1}}
             data={props.results}
             keyExtractor={(item) => item._id}
             renderItem={(itemData) => (
